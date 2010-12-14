@@ -5,7 +5,11 @@ $lang = array(
 'panel_module_name'					=> "Panel",
 'panel_module_description'			=> "Build custom settings panels",
 
-'panel_edit_panels'					=> "Edit Panels"
+'panel_new_panel'					=> "New Panel",
+'panel_edit_panels'					=> "Edit Panels",
+
+'panel_name'						=> "Panel Name",
+'panel_manage_panels'				=> "Manage Panels"
 
 );
 
