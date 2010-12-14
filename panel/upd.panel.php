@@ -24,8 +24,7 @@ class Panel_upd {
 		$this->EE->dbforge->add_field( 'id' );
 			
 		$panel_fields = array(
-            'panel_name' 	=> array( 'type' =>'VARCHAR', 'constraint' => 80 ),
-            'panel_desc' 	=> array( 'type' =>'VARCHAR', 'constraint' => 255 )
+            'panel_name' 	=> array( 'type' =>'VARCHAR', 'constraint' => 80 )
         );
                         
         $this->EE->dbforge->add_field( $panel_fields );
