@@ -22,7 +22,6 @@ class Panel_mcp {
 	{	
 		$this->EE->cp->set_right_nav( 
 			array(
-				'panel_new_panel' 		=> $this->module_base.AMP.'method=new_panel',
 				'panel_manage_panels' 	=> $this->module_base.AMP.'method=manage_panels'
 			)
 		 );
@@ -49,6 +48,13 @@ class Panel_mcp {
 	 */
 	function manage_panels()
 	{
+		$this->EE->cp->set_right_nav( 
+			array(
+				'panel_module_name' 	=> $this->module_base,
+				'panel_new_panel' 		=> $this->module_base.AMP.'method=new_panel'
+			)
+		);
+		
 		$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_manage_panels'));
 		
 		$vars['module_base'] = $this->module_base;
@@ -66,9 +72,11 @@ class Panel_mcp {
 		$this->EE->load->library('Table');
 		
 		// -------------------------------------
-		// Load trigger edit window
+		// Load Page
 		// -------------------------------------
 
+		$this->EE->cp->set_breadcrumb($this->module_base, $this->EE->lang->line('panel_module_name'));
+		
 		return $this->EE->load->view('list_panels', $vars, TRUE); 
 	}
 
@@ -107,7 +115,7 @@ class Panel_mcp {
 			
 				$this->EE->session->set_flashdata('message_success', "Panel added successfully");
 				
-				$this->EE->functions->redirect( $this->module_base );
+				$this->EE->functions->redirect( $this->module_base.AMP.'method=manage_panels' );
 			
 			else:
 			
@@ -116,6 +124,9 @@ class Panel_mcp {
 			endif;
 		
 		endif;
+
+		$this->EE->cp->set_breadcrumb($this->module_base, $this->EE->lang->line('panel_module_name'));
+		$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_panels', $this->EE->lang->line('panel_manage_panels'));
 
 		return $this->_panel_form( $vars );
 	}
@@ -172,6 +183,9 @@ class Panel_mcp {
 			'panel_name'	=> $panel->panel_name,
 			'method'		=> 'edit'
 		);
+
+		$this->EE->cp->set_breadcrumb($this->module_base, $this->EE->lang->line('panel_module_name'));
+		$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_panels', $this->EE->lang->line('panel_manage_panels'));
 		
 		return $this->_panel_form( $vars );	
 	}
