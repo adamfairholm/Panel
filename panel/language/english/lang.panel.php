@@ -12,6 +12,7 @@ $lang = array(
 
 'panel_name'						=> "Panel Name",
 'panel_manage_panels'				=> "Manage Panels",
+'panel_manage_settings'				=> "Manage Settings",
 
 'panel_delete_this_panel'			=> "Are you sure you want to delete this panel? It will delete all associated settings."
 

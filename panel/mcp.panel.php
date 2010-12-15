@@ -257,6 +257,54 @@ class Panel_mcp {
 		endif;
 	}
 
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Manage Settings
+	 *
+	 * This shows the current settings for a panel
+	 *
+	 * @access	public
+	 */		
+	function manage_settings()
+	{
+		$this->EE->load->model('settings_mdl');
+	
+		$panel_id = $this->EE->input->get_post('panel_id');
+
+		// -------------------------------------
+		// Get Panel Data
+		// -------------------------------------
+
+		$panel = $this->EE->panel_mdl->get_panel( $panel_id );		
+
+		// -------------------------------------
+		// Get Settings for Panel
+		// -------------------------------------
+
+		$settings = $this->EE->settings_mdl->get_settings_for_panel( $panel_id );
+
+		// -------------------------------------
+		// Load Table Library for layout
+		// -------------------------------------
+	
+		$this->EE->load->library('Table');
+
+		// -------------------------------------
+		// Load Page
+		// -------------------------------------
+		
+		$vars['settings']			= $settings;
+		$vars['module_base']		= $this->module_base;
+
+		$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_manage_settings').': '.$panel->panel_name);				
+
+		$this->EE->cp->set_breadcrumb($this->module_base, $this->EE->lang->line('panel_module_name'));
+		$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_panels', $this->EE->lang->line('panel_manage_panels'));
+			
+		return $this->EE->load->view('list_settings', $vars, TRUE);
+	}
+
 }
 
 /* End of file mcp.panel.php */
