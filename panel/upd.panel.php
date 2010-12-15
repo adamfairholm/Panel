@@ -40,10 +40,11 @@ class Panel_upd {
 		$scratch_fields = array(
             'panel_id' 		=> array( 'type' => 'INT', 'constraint' => 11 ),
             'setting_type' 	=> array( 'type' => 'VARCHAR', 'constraint' => 40 ),
+            'setting_label' => array( 'type' => 'VARCHAR', 'constraint' => 100 ),
             'setting_name' 	=> array( 'type' => 'VARCHAR', 'constraint' => 100 ),
-            'setting_slug' 	=> array( 'type' => 'VARCHAR', 'constraint' => 100 ),
             'instructions' 	=> array( 'type' => 'VARCHAR', 'constraint' => 255 ),
-            'value' 		=> array( 'type' => 'TEXT' )
+            'default_value' => array( 'type' => 'TEXT' ),
+           	'value' 		=> array( 'type' => 'TEXT' )
         );
             
         $this->EE->dbforge->add_field( $scratch_fields );
