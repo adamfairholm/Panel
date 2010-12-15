@@ -507,6 +507,8 @@ class Panel_mcp {
 	
 	/**
 	 * The form for editing and creating settings
+	 *
+	 * @access	private
 	 */
 	function _setting_form( $vars )
 	{
@@ -542,6 +544,50 @@ class Panel_mcp {
 		return $this->EE->load->view('setting_form', $vars, TRUE);
 	}
 
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Deletes a setting
+	 *
+	 * @access 	public
+	 */
+	function delete_setting()
+	{
+		$panel_id = $this->EE->input->get_post('panel_id');
+
+		// -------------------------------------
+		// Get Setting Data
+		// -------------------------------------
+
+		$setting_id = $this->EE->input->get_post('setting_id');
+
+		$setting = $this->EE->settings_mdl->get_setting( $setting_id );	
+		
+		$vars['panel_id']			= $panel_id;
+		$vars['setting_id']			= $setting->id;
+		$vars['setting_label']		= $setting->setting_label;
+		$vars['module_base']		= $this->module_base;
+
+		// -------------------------------------
+		// Process Delete
+		// -------------------------------------
+
+		if( $this->EE->input->get_post('delete_confirm') == TRUE ):
+		
+			$this->EE->settings_mdl->delete_setting( $setting_id );
+			
+			$this->EE->session->set_flashdata('message_success', "Setting deleted successfully");
+			
+			$this->EE->functions->redirect( $this->module_base.AMP.'method=manage_settings'.AMP.'panel_id='.$panel_id );
+
+		else:
+
+			$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_delete_setting'));				
+			
+			return $this->EE->load->view('delete_setting', $vars, TRUE);
+		
+		endif;
+	}
 }
 
 /* End of file mcp.panel.php */

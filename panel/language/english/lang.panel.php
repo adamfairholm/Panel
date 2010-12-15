@@ -11,12 +11,13 @@ $lang = array(
 'panel_delete_panel'				=> "Delete Panel",
 'panel_new_setting'					=> "New Setting",
 'panel_edit_setting'				=> "Edit Setting",
-
 'panel_name'						=> "Panel Name",
 'panel_manage_panels'				=> "Manage Panels",
 'panel_manage_settings'				=> "Manage Settings",
+'panel_delete_setting'				=> "Delete Setting",
 
 'panel_delete_this_panel'			=> "Are you sure you want to delete this panel? It will delete all associated settings.",
+'panel_delete_this_setting'			=> "Are you sure you want to delete this setting? It will no longer be available in your templates.",
 
 'panel_setting_type'				=> "Setting Type",
 'panel_setting_label'				=> "Setting Label",

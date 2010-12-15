@@ -186,6 +186,23 @@ class Settings_mdl extends CI_Model {
 	
 		return $obj->num_rows();
 	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Deletes a setting
+	 *
+	 * @access	public
+	 * @param	int
+	 * @return	bool
+	 */
+	function delete_setting( $setting_id )
+	{
+		$this->db->where('id', $setting_id);
+	
+		return $this->db->delete('panel_settings');
+	}
+
 }
 
 /* End of file settings_mdl.php */
