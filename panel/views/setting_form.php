@@ -2,7 +2,7 @@
 
 	$form_url = 'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=panel'.AMP.'method='.$method.'_setting'.AMP.'panel_id='.$panel_id;
 	
-	if( $method = 'edit' ):
+	if( $method == 'edit' ):
 	
 		$form_url .= AMP.'setting_id='.$setting_id;
 	
