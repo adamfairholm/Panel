@@ -147,7 +147,7 @@ class Settings_mdl extends CI_Model {
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Update a setting
+	 * Updates a setting
 	 *
 	 * @access	public
 	 * @param	array
@@ -169,6 +169,23 @@ class Settings_mdl extends CI_Model {
 		return $this->db->update( 'panel_settings', $update_data );
 	}
 
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Counts the number of settings for a given panel
+	 *
+	 * @access	public
+	 * @param	int
+	 * @return	int
+	 */
+	function count_panel_settings( $panel_id )
+	{
+		$this->db->where('panel_id', $panel_id);
+	
+		$obj = $this->db->get('panel_settings');
+	
+		return $obj->num_rows();
+	}
 }
 
 /* End of file settings_mdl.php */
