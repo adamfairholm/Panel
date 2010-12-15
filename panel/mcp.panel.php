@@ -9,6 +9,8 @@ class Panel_mcp {
 		$this->EE =& get_instance();
 		
 		$this->EE->load->model('panel_mdl');
+
+		$this->EE->load->model('settings_mdl');
 		
 		$this->module_base = BASE.AMP.'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=panel';
 	}
@@ -272,6 +274,12 @@ class Panel_mcp {
 	
 		$panel_id = $this->EE->input->get_post('panel_id');
 
+		$this->EE->cp->set_right_nav( 
+			array(
+				'panel_new_setting' 		=> $this->module_base.AMP.'method=new_setting'.AMP.'panel_id='.$panel_id
+			)
+		);
+
 		// -------------------------------------
 		// Get Panel Data
 		// -------------------------------------
@@ -296,6 +304,7 @@ class Panel_mcp {
 		
 		$vars['settings']			= $settings;
 		$vars['module_base']		= $this->module_base;
+		$vars['panel_id']			= $panel->id;
 
 		$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_manage_settings').': '.$panel->panel_name);				
 
@@ -303,6 +312,162 @@ class Panel_mcp {
 		$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_panels', $this->EE->lang->line('panel_manage_panels'));
 			
 		return $this->EE->load->view('list_settings', $vars, TRUE);
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Create a new setting
+	 *
+	 * @access	public
+	 */
+	function new_setting()
+	{	
+		$method = 'new';
+	
+		$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_new_setting'));
+
+		// -------------------------------------
+		// Get Panel Data
+		// -------------------------------------
+		
+		$panel_id = $this->EE->input->get_post('panel_id');
+
+		$panel = $this->EE->panel_mdl->get_panel( $panel_id );		
+
+		$vars = array(
+			'method'		=> $method,
+			'panel_id'		=> $panel_id,
+			'setting_type'	=> '',
+			'setting_label'	=> '',
+			'setting_name'	=> '',
+			'instructions'	=> '',
+			'default_value'	=> ''
+		);
+
+		// -------------------------------------
+		// Process Data
+		// -------------------------------------
+
+		if( $this->EE->input->get_post('submit') ):
+		
+			// -------------------------------------
+			// Processing
+			// -------------------------------------
+			
+			$this->_validate_setting();
+					
+			if( $this->EE->settings_mdl->add_setting_to_panel( $_POST, $panel_id ) ):
+			
+				$this->EE->session->set_flashdata('message_success', "Setting added to panel successfully");
+				
+				$this->EE->functions->redirect( $this->module_base.AMP.'method=manage_panels' );
+			
+			else:
+			
+				show_error("There was a problem with adding this setting");
+			
+			endif;
+		
+		endif;
+
+		// -------------------------------------
+		// Load Page
+		// -------------------------------------
+
+		$this->EE->cp->set_breadcrumb($this->module_base, $this->EE->lang->line('panel_module_name'));
+		$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_panels', $this->EE->lang->line('panel_manage_panels'));
+
+		return $this->_setting_form( $vars );
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Process and save setting data
+	 */
+	function _validate_setting( $method = 'new' )
+	{
+		// -------------------------------------
+		// Validation
+		// -------------------------------------
+	
+		$errors = array();
+		
+		// Do we have a setting label?
+	
+		if( $this->EE->input->get_post('setting_label') == '' ):
+		
+			$errors[] = "The Settings Label field is required.";
+		
+		endif;
+
+		// Do we have a setting name?
+		
+		if( $this->EE->input->get_post('setting_name') == '' ):
+		
+			$errors[] = "The Settings Name field is required.";
+		
+		endif;
+
+		// Is the setting name unique?
+		
+		if( ! $this->EE->settings_mdl->is_name_unique( $this->EE->input->get_post('setting_name'), $method ) ):
+		
+			$errors[] = "There is already a setting with this name.";
+		
+		endif;
+	
+		if(count($errors) > 0)
+		{
+			$err = null;
+	
+			foreach ($errors as $error)
+			{
+				$err .= $error.BR;
+			}
+	
+			show_error($err);
+		}
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * The form for editing and creating settings
+	 */
+	function _setting_form( $vars )
+	{
+		// -------------------------------------
+		// Get the types & create an array
+		// -------------------------------------
+
+		$types = $this->EE->settings_mdl->get_setting_types();
+
+		foreach( $types as $type ):
+		
+			$vars['setting_types'][$type->setting_type_name] = $type->setting_type_label;
+		
+		endforeach;
+
+		// -------------------------------------
+		// Table Loads and Logic
+		// -------------------------------------
+
+		$this->EE->load->library('Table');
+
+		$this->EE->jquery->tablesorter('.mainTable', '{
+			headers: {0: {sorter: false}, 1: {sorter: false}},
+			widgets: ["zebra"]
+		}');
+
+		$this->EE->javascript->compile();	
+		
+		// -------------------------------------
+		// Load Page
+		// -------------------------------------
+	
+		return $this->EE->load->view('setting_form', $vars, TRUE);
 	}
 
 }

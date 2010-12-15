@@ -43,7 +43,8 @@ class Panel_upd {
             'setting_label' => array( 'type' => 'VARCHAR', 'constraint' => 100 ),
             'setting_name' 	=> array( 'type' => 'VARCHAR', 'constraint' => 100 ),
             'instructions' 	=> array( 'type' => 'VARCHAR', 'constraint' => 255 ),
-            'default_value' => array( 'type' => 'TEXT' ),
+            'data' => array( 'type' => 'TEXT' ),
+           	'default_value' => array( 'type' => 'TEXT' ),
            	'value' 		=> array( 'type' => 'TEXT' )
         );
             
