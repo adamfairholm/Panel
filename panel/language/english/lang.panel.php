@@ -8,9 +8,12 @@ $lang = array(
 'panel_new_panel'					=> "New Panel",
 'panel_edit_panels'					=> "Edit Panels",
 'panel_edit_panel'					=> "Edit Panel",
+'panel_delete_panel'				=> "Delete Panel",
 
 'panel_name'						=> "Panel Name",
-'panel_manage_panels'				=> "Manage Panels"
+'panel_manage_panels'				=> "Manage Panels",
+
+'panel_delete_this_panel'			=> "Are you sure you want to delete this panel? It will delete all associated settings."
 
 );
 

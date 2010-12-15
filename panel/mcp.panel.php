@@ -193,7 +193,55 @@ class Panel_mcp {
 		// -------------------------------------
 
 		return $this->EE->load->view('panel_form', $vars, TRUE); 
-	}	
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Delete a panel
+	 *
+	 * This deletes the panel in the database and all the 
+	 * attached settings
+	 *
+	 * @access	public
+	 */	
+	function delete_panel()
+	{
+		$panel_id = $this->EE->input->get_post('panel_id');
+
+		// -------------------------------------
+		// Get Panel Data
+		// -------------------------------------
+
+		$panel = $this->EE->panel_mdl->get_panel( $panel_id );	
+		
+		$vars['panel_id']			= $panel_id;
+		$vars['panel_name']			= $panel->panel_name;
+		$vars['module_base']		= $this->module_base;
+
+		// -------------------------------------
+		// Process Delete
+		// -------------------------------------
+
+		if( $this->EE->input->get_post('delete_confirm') == TRUE ):
+		
+			$this->EE->panel_mdl->delete_panel( $this->EE->input->get_post('panel_id') );
+			
+			$this->EE->session->set_flashdata('message_success', $this->EE->lang->line('panel_deleted'));
+			
+			$this->EE->functions->redirect($this->module_base.AMP.'&method=manage_panels');
+
+		else:
+
+			//$this->cp->set_breadcrumb($this->module_base, $this->lang->line(''));
+			//$this->cp->set_breadcrumb($this->module_base, $this->lang->line(''));
+			
+			$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_delete_panel'));				
+			
+			return $this->EE->load->view('delete_panel', $vars, TRUE);
+		
+		endif;
+	}
 
 }
 

@@ -93,6 +93,40 @@ class Panel_mdl extends CI_Model {
 		endif;
 	}
 
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Delete a panel and attending data
+	 *
+	 * @access	public
+	 * @param	int
+	 * @return	bool
+	 */
+	function delete_panel( $panel_id )
+	{
+		// -------------------------------------
+		// Delete from panels table	
+		// -------------------------------------	
+	
+		$this->db->where('id', $panel_id);
+		
+		$outcome = $this->db->delete('panels');
+
+		// -------------------------------------
+		// Delete settings	
+		// -------------------------------------
+		
+		if( $outcome ):	
+
+		$this->db->where('panel_id', $panel_id);
+		
+		$outcome = $this->db->delete('panel_settings');
+		
+		endif;
+	
+		return $outcome; 
+	}
+
 }
 
 /* End of file panel_mdl.php */
