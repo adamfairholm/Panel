@@ -10,6 +10,26 @@ class Settings_mdl extends CI_Model {
 	// --------------------------------------------------------------------------
 	
 	/**
+	 * Get a setting
+	 *
+	 * @access	public
+	 * @param	int
+	 * @return	obj
+	 */
+	function get_setting( $setting_id )
+	{
+		$this->db->limit(1);
+	
+		$this->db->where('id', $setting_id);
+		
+		$obj = $this->db->get('panel_settings');
+		
+		return $obj->row();
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
 	 * Get the settings for a panel
 	 *
 	 * @access	public
@@ -122,6 +142,31 @@ class Settings_mdl extends CI_Model {
 		);
 	
 		return $this->db->insert( 'panel_settings', $insert_data );
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Update a setting
+	 *
+	 * @access	public
+	 * @param	array
+	 * @param	int
+	 * @return	bool
+	 */	
+	function update_setting( $data, $setting_id )
+	{
+		$update_data = array(
+			'setting_type'		=> $data['setting_type'],
+			'setting_label'		=> $data['setting_label'],
+			'setting_name'		=> $data['setting_name'],
+			'instructions'		=> $data['instructions'],
+			'default_value'		=> $data['default_value'],
+		);
+		
+		$this->db->where('id', $setting_id);
+	
+		return $this->db->update( 'panel_settings', $update_data );
 	}
 
 }

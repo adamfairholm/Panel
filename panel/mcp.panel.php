@@ -382,6 +382,78 @@ class Panel_mcp {
 	}
 
 	// --------------------------------------------------------------------------
+	
+	/**
+	 * Edit a setting
+	 *
+	 * @access	public
+	 */
+	function edit_setting()
+	{	
+		$method = 'edit';
+	
+		$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_edit_setting'));
+
+		// -------------------------------------
+		// Get Panel & Setting Data
+		// -------------------------------------
+		
+		$panel_id = $this->EE->input->get_post('panel_id');
+
+		$panel = $this->EE->panel_mdl->get_panel( $panel_id );
+
+		$setting_id = $this->EE->input->get_post('setting_id');
+		
+		$setting = $this->EE->settings_mdl->get_setting( $setting_id );	
+
+		$vars = array(
+			'setting_id'	=> $setting->id,
+			'method'		=> $method,
+			'panel_id'		=> $panel_id,
+			'setting_type'	=> $setting->setting_type,
+			'setting_label'	=> $setting->setting_label,
+			'setting_name'	=> $setting->setting_name,
+			'instructions'	=> $setting->instructions,
+			'default_value'	=> $setting->default_value
+		);
+
+		// -------------------------------------
+		// Process Data
+		// -------------------------------------
+
+		if( $this->EE->input->get_post('submit') ):
+		
+			// -------------------------------------
+			// Processing
+			// -------------------------------------
+			
+			$this->_validate_setting();
+					
+			if( $this->EE->settings_mdl->update_setting( $_POST, $setting_id ) ):
+			
+				$this->EE->session->set_flashdata('message_success', "Setting updated successfully");
+				
+				$this->EE->functions->redirect( $this->module_base.AMP.'method=manage_panels' );
+			
+			else:
+			
+				show_error("There was a problem with updating this setting");
+			
+			endif;
+		
+		endif;
+
+		// -------------------------------------
+		// Load Page
+		// -------------------------------------
+
+		$this->EE->cp->set_breadcrumb($this->module_base, $this->EE->lang->line('panel_module_name'));
+		$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_panels', $this->EE->lang->line('panel_manage_panels'));
+
+		return $this->_setting_form( $vars );
+	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Process and save setting data

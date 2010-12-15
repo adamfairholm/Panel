@@ -10,6 +10,7 @@ $lang = array(
 'panel_edit_panel'					=> "Edit Panel",
 'panel_delete_panel'				=> "Delete Panel",
 'panel_new_setting'					=> "New Setting",
+'panel_edit_setting'				=> "Edit Setting",
 
 'panel_name'						=> "Panel Name",
 'panel_manage_panels'				=> "Manage Panels",
