@@ -7,6 +7,7 @@ $lang = array(
 
 'panel_new_panel'					=> "New Panel",
 'panel_edit_panels'					=> "Edit Panels",
+'panel_edit_panel'					=> "Edit Panel",
 
 'panel_name'						=> "Panel Name",
 'panel_manage_panels'				=> "Manage Panels"

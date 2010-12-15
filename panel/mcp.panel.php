@@ -76,6 +76,8 @@ class Panel_mcp {
 	
 	/**
 	 * Create a new panel
+	 *
+	 * @access	public
 	 */
 	function new_panel()
 	{
@@ -116,6 +118,62 @@ class Panel_mcp {
 		endif;
 
 		return $this->_panel_form( $vars );
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Edit a panel's data
+	 *
+	 * @access	public
+	 */
+	function edit_panel()
+	{
+		$panel_id = $this->EE->input->get_post('panel_id');
+	
+		// -------------------------------------
+		// Process Data
+		// -------------------------------------
+
+		if( $this->EE->input->get_post('submit') ):
+		
+			// Check that we have a panel name
+		
+			if( $this->EE->input->get_post('panel_name') == '' ):
+			
+				show_error("You must provide a panel name");
+			
+			endif;
+			
+			if( $this->EE->panel_mdl->update_panel( $this->EE->input->get_post('id'), $this->EE->input->get_post('panel_name') ) ):
+			
+				$this->EE->session->set_flashdata('message_success', "Panel updated successfully");
+				
+				$this->EE->functions->redirect( $this->module_base.AMP.'method=manage_panels' );
+			
+			else:
+			
+				show_error("There was a problem with updating this panel");
+			
+			endif;
+		
+		endif;
+
+		// -------------------------------------
+		// Get Panel Data
+		// -------------------------------------
+
+		$panel = $this->EE->panel_mdl->get_panel( $panel_id );		
+
+		$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_edit_panel'));
+
+		$vars = array(
+			'id'			=> $panel_id,
+			'panel_name'	=> $panel->panel_name,
+			'method'		=> 'edit'
+		);
+		
+		return $this->_panel_form( $vars );	
 	}
 	
 	// --------------------------------------------------------------------------

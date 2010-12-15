@@ -10,7 +10,7 @@ class Panel_mdl extends CI_Model {
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Add panel into the database
+	 * Add a panel
 	 *
 	 * @access	public
 	 * @param	string
@@ -21,6 +21,25 @@ class Panel_mdl extends CI_Model {
 		$insert_data['panel_name']		= $panel_name;
 		
 		return $this->db->insert('panels', $insert_data);
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Update a panel
+	 *
+	 * @access	public
+	 * @param	int
+	 * @param	string
+	 * @return	bool
+	 */
+	function update_panel( $panel_id, $panel_name )
+	{
+		$update_data['panel_name']		= $panel_name;
+		
+		$this->db->where('id', $panel_id);
+		
+		return $this->db->update('panels', $update_data);
 	}
 
 	// --------------------------------------------------------------------------
@@ -44,6 +63,34 @@ class Panel_mdl extends CI_Model {
 		$obj = $this->db->get('panels');
 		
 		return $obj->result();
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get a single panel
+	 *
+	 * @access	public
+	 * @param	int
+	 * @return	mixed
+	 */
+	function get_panel( $panel_id )
+	{
+		$this->db->limit(1);
+		
+		$this->db->where('id', $panel_id);
+		
+		$obj = $this->db->get('panels');
+		
+		if( $obj->num_rows() == 0 ):
+		
+			return FALSE;
+		
+		else:
+		
+			return $obj->row();
+		
+		endif;
 	}
 
 }
