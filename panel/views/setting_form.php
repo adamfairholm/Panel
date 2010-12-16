@@ -12,7 +12,7 @@
 
 <?=form_open($form_url)?>
 
-<table class="mainTable padTable" cellspacing="0" cellpadding="0" border="0">
+<table class="mainTable padTable" id="setting_settings_table" cellspacing="0" cellpadding="0" border="0">
 <thead>
 	<tr>
 		<th colspan="2">
@@ -61,6 +61,8 @@
 			<?=form_input(array('id'=>'default_value','name'=>'default_value','class'=>'fullfield','value'=>$default_value))?>
 		</td>
 	</tr>
+	
+	<div id="new_params"></div>
 
 </tbody>
 </table>

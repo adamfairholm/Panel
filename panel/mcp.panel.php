@@ -8,11 +8,11 @@ class Panel_mcp {
 	{
 		$this->EE =& get_instance();
 		
-		$this->EE->load->model('panel_mdl');
-
-		$this->EE->load->model('settings_mdl');
+		$this->EE->load->model( array('panel_mdl', 'settings_mdl') );
 		
-		$this->module_base = BASE.AMP.'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=panel';
+		$this->module_base = $this->EE->config->item('base_url').'admin/'.BASE.AMP.'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=panel';
+
+		$this->types = $this->EE->settings_mdl->get_setting_types();
 	}
 
 	// --------------------------------------------------------------------------
@@ -338,6 +338,7 @@ class Panel_mcp {
 		$vars = array(
 			'method'		=> $method,
 			'panel_id'		=> $panel_id,
+			'module_base'	=> $this->module_base,
 			'setting_type'	=> '',
 			'setting_label'	=> '',
 			'setting_name'	=> '',
@@ -393,7 +394,7 @@ class Panel_mcp {
 		$method = 'edit';
 	
 		$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_edit_setting'));
-
+	
 		// -------------------------------------
 		// Get Panel & Setting Data
 		// -------------------------------------
@@ -410,6 +411,7 @@ class Panel_mcp {
 			'setting_id'	=> $setting->id,
 			'method'		=> $method,
 			'panel_id'		=> $panel_id,
+			'module_base'	=> $this->module_base,
 			'setting_type'	=> $setting->setting_type,
 			'setting_label'	=> $setting->setting_label,
 			'setting_name'	=> $setting->setting_name,
@@ -513,12 +515,20 @@ class Panel_mcp {
 	function _setting_form( $vars )
 	{
 		// -------------------------------------
+		// JS
+		// -------------------------------------
+		
+		$this->EE->cp->load_package_js('parameters');
+		
+		//$js_base_url = str_replace("&amp;", '&', $this->module_base.AMP);
+
+		//$this->EE->javascript->output('');
+
+		// -------------------------------------
 		// Get the types & create an array
 		// -------------------------------------
 
-		$types = $this->EE->settings_mdl->get_setting_types();
-
-		foreach( $types as $type ):
+		foreach( $this->types as $type ):
 		
 			$vars['setting_types'][$type->setting_type_name] = $type->setting_type_label;
 		
@@ -587,6 +597,40 @@ class Panel_mcp {
 			return $this->EE->load->view('delete_setting', $vars, TRUE);
 		
 		endif;
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Accessed via AJAX
+	 */
+	function show_parameters()
+	{
+		$output = null;
+	
+		$this->EE->load->helper('panel');
+	
+		$setting_type = $this->EE->input->get_post('type');
+		
+		// Get the setting types and see if they have any custom settings
+		
+		if( isset($this->types->$setting_type->setting_data) ):
+		
+			foreach( $this->types->$setting_type->setting_data as $name => $label ):
+		
+				if( method_exists( $this->types->$setting_type, $name.'_input' ) ):
+		
+					$call = $name.'_input';
+		
+					$output .= '<tr><td><strong>'.$label.'</strong></td><td>'.$this->types->$setting_type->$call().'</td></tr>';
+				
+				endif;
+		
+			endforeach;
+		
+		endif;
+			
+		ajax_output( $output );
 	}
 }
 
