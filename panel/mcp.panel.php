@@ -432,8 +432,10 @@ class Panel_mcp {
 			// -------------------------------------
 			
 			$this->_validate_setting();
+
+			$type = $_POST['setting_type'];
 					
-			if( $this->EE->settings_mdl->update_setting( $_POST, $setting_id ) ):
+			if( $this->EE->settings_mdl->update_setting( $_POST, $setting_id, $this->types->$type ) ):
 			
 				$this->EE->session->set_flashdata('message_success', "Setting updated successfully");
 				
@@ -606,39 +608,11 @@ class Panel_mcp {
 	 */
 	function show_parameters()
 	{
-		$output = null;
-	
 		$this->EE->load->helper('panel');
 	
 		$setting_type = $this->EE->input->get_post('type');
 		
-		// Get the setting types and see if they have any custom settings
-		
-		if( isset($this->types->$setting_type->setting_data) ):
-		
-			foreach( $this->types->$setting_type->setting_data as $name ):
-		
-				if( method_exists( $this->types->$setting_type, $name.'_input' ) ):
-		
-					$call = $name.'_input';
-		
-					$output .= '<tr class="panel_extra_param"><td><strong>'.$this->types->$setting_type->lang[$name.'_label'].'</strong>';
-					
-					// Add instructions if they are available
-					
-					if( isset($this->types->$setting_type->lang[$name.'_instructions']) ):
-					
-						$output .= '<br />'.$this->types->$setting_type->lang[$name.'_instructions'];
-					
-					endif;
-					
-					$output .= '</td><td>'.$this->types->$setting_type->$call().'</td></tr>';
-				
-				endif;
-		
-			endforeach;
-		
-		endif;
+		$output = extra_rows( $setting_type, $this->types );
 			
 		ajax_output( $output );
 	}
