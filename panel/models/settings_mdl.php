@@ -24,7 +24,17 @@ class Settings_mdl extends CI_Model {
 		
 		$obj = $this->db->get('panel_settings');
 		
-		return $obj->row();
+		$setting = $obj->row();
+		
+		// Get extra params if they exist
+		
+		if( $setting->data != '' ):
+		
+			$setting->data = unserialize($setting->data);
+		
+		endif;
+		
+		return $setting;
 	}
 
 	// --------------------------------------------------------------------------
