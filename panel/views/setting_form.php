@@ -62,7 +62,7 @@
 		</td>
 	</tr>
 	
-	<div id="new_params"></div>
+	<?=$extra_rows;?>
 
 </tbody>
 </table>

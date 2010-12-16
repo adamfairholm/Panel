@@ -126,17 +126,19 @@ class Settings_mdl extends CI_Model {
 		
 		if( $method == 'new' ):
 		
-			$threshold = 0;
+			if( $count > 0 ):
+			
+				return FALSE;
+			
+			endif;
 		
 		else:
 		
-			$threshold = 1;
-		
-		endif;
-
-		if( $count > $threshold ):
-		
-			return FALSE;
+			if( $count != 1 ):
+			
+				return FALSE;
+			
+			endif;
 		
 		endif;
 

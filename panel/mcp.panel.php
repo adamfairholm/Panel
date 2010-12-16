@@ -339,6 +339,7 @@ class Panel_mcp {
 			'method'		=> $method,
 			'panel_id'		=> $panel_id,
 			'module_base'	=> $this->module_base,
+			'extra_fields'	=> '',
 			'setting_type'	=> '',
 			'setting_label'	=> '',
 			'setting_name'	=> '',
@@ -356,7 +357,7 @@ class Panel_mcp {
 			// Processing
 			// -------------------------------------
 			
-			$this->_validate_setting();
+			$this->_validate_setting( 'new' );
 			
 			$type = $_POST['setting_type'];
 					
@@ -394,6 +395,8 @@ class Panel_mcp {
 	function edit_setting()
 	{	
 		$method = 'edit';
+
+		$this->EE->load->helper('panel');
 	
 		$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_edit_setting'));
 	
@@ -421,6 +424,10 @@ class Panel_mcp {
 			'default_value'	=> $setting->default_value
 		);
 
+		// Get the extra fields
+		
+		$vars['extra_rows'] = extra_rows( $setting->setting_type, $this->types, $setting->data );
+
 		// -------------------------------------
 		// Process Data
 		// -------------------------------------
@@ -431,7 +438,7 @@ class Panel_mcp {
 			// Processing
 			// -------------------------------------
 			
-			$this->_validate_setting();
+			$this->_validate_setting( 'edit' );
 
 			$type = $_POST['setting_type'];
 					
@@ -464,7 +471,7 @@ class Panel_mcp {
 	/**
 	 * Process and save setting data
 	 */
-	function _validate_setting( $method = 'new' )
+	function _validate_setting( $method )
 	{
 		// -------------------------------------
 		// Validation

@@ -31,9 +31,10 @@ function ajax_output( $output )
  * @access	public
  * @param	string
  * @param	obj
+ * @param	[array]
  * @return	string
  */
-function extra_rows( $setting_type, $types )
+function extra_rows( $setting_type, $types, $values = array() )
 {
 	$output = '';
 
@@ -55,7 +56,15 @@ function extra_rows( $setting_type, $types )
 				
 				endif;
 				
-				$output .= '</td><td>'.$types->$setting_type->$call().'</td></tr>';
+				if( isset($values[$name]) ):
+				
+					$output .= '</td><td>'.$types->$setting_type->$call($values[$name]).'</td></tr>';
+				
+				else:
+				
+					$output .= '</td><td>'.$types->$setting_type->$call().'</td></tr>';
+			
+				endif;
 			
 			endif;
 	
