@@ -8,8 +8,6 @@
  */
 class Setting_yesno
 {
-	var $setting_type_label 		= 'Yes/No';
-	
 	var $setting_type_name			= 'yesno';
 	
 	// --------------------------------------------------------------------------

@@ -69,16 +69,26 @@ class Settings_mdl extends CI_Model {
 		
 		foreach( $folders as $folder => $node ):
 		
-			$setting_file = APPPATH.'third_party/panel/settings/'.$folder.'/setting.'.$folder.EXT;
+			$setting_path = APPPATH.'third_party/panel/settings/'.$folder.'/';
 		
-			if( file_exists($setting_file) ):
+			if( file_exists($setting_path.'setting.'.$folder.EXT) ):
 			
-				require_once($setting_file);
+				require_once($setting_path.'setting.'.$folder.EXT);
 
 				$class_name = 'Setting_'.$folder;
 	
-				$types->$folder= new $class_name();
+				$types->$folder = new $class_name();
 		
+			endif;
+			
+			// Add language files
+
+			if( file_exists($setting_path.'language/'.$this->config->item('deft_lang').'/lang.'.$folder.EXT) ):
+			
+				require_once($setting_path.'language/'.$this->config->item('deft_lang').'/lang.'.$folder.EXT);
+			
+				$types->$folder->lang = $lang[$folder];
+			
 			endif;
 	
 		endforeach;

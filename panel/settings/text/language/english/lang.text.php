@@ -2,7 +2,6 @@
 
 $lang['text'] = array(
 
-'setting_name'					=> "text",
 'setting_label'					=> "Text"
 
 );

@@ -2,7 +2,6 @@
 
 $lang['entry'] = array(
 
-'setting_name'					=> "entry",
 'setting_label'					=> "Entry"
 
 );

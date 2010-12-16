@@ -515,22 +515,20 @@ class Panel_mcp {
 	function _setting_form( $vars )
 	{
 		// -------------------------------------
-		// JS
+		// Parameters JS
 		// -------------------------------------
 		
 		$this->EE->cp->load_package_js('parameters');
-		
-		//$js_base_url = str_replace("&amp;", '&', $this->module_base.AMP);
-
-		//$this->EE->javascript->output('');
 
 		// -------------------------------------
 		// Get the types & create an array
 		// -------------------------------------
+		
+		$vars['setting_types']['-'] = "--Pick a Setting Type--";
 
 		foreach( $this->types as $type ):
 		
-			$vars['setting_types'][$type->setting_type_name] = $type->setting_type_label;
+			$vars['setting_types'][$type->setting_type_name] = $type->lang['setting_label'];
 		
 		endforeach;
 
@@ -622,7 +620,7 @@ class Panel_mcp {
 		
 					$call = $name.'_input';
 		
-					$output .= '<tr><td><strong>'.$label.'</strong></td><td>'.$this->types->$setting_type->$call().'</td></tr>';
+					$output .= '<tr class="panel_extra_param"><td><strong>'.$label.'</strong></td><td>'.$this->types->$setting_type->$call().'</td></tr>';
 				
 				endif;
 		

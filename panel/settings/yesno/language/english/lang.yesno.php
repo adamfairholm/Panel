@@ -2,7 +2,6 @@
 
 $lang['yesno'] = array(
 
-'setting_name'					=> "yesno",
 'setting_label'					=> "Yes/No"
 
 );

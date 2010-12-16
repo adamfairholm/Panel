@@ -10,10 +10,8 @@
  */
 class Setting_entry
 {
-	var $setting_type_label 		= 'Entry';
-	
 	var $setting_type_name			= 'entry';
-	
+
 	var $setting_data				= array( 'channel' => 'Channel' );
 
 	// --------------------------------------------------------------------------
