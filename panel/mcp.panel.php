@@ -357,8 +357,10 @@ class Panel_mcp {
 			// -------------------------------------
 			
 			$this->_validate_setting();
+			
+			$type = $_POST['setting_type'];
 					
-			if( $this->EE->settings_mdl->add_setting_to_panel( $_POST, $panel_id ) ):
+			if( $this->EE->settings_mdl->add_setting( $_POST, $panel_id, $this->types->$type ) ):
 			
 				$this->EE->session->set_flashdata('message_success', "Setting added to panel successfully");
 				

@@ -24,6 +24,8 @@ class Setting_entry
 		$this->EE =& get_instance();
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Extra field to choose a channel
 	 *

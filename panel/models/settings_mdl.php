@@ -141,9 +141,10 @@ class Settings_mdl extends CI_Model {
 	 * @access	public
 	 * @param	array
 	 * @param	int
+	 * @param	obj
 	 * @return	bool
 	 */	
-	function add_setting_to_panel( $data, $panel_id )
+	function add_setting( $data, $panel_id, $type )
 	{
 		$insert_data = array(
 			'panel_id'			=> $panel_id,
@@ -154,6 +155,30 @@ class Settings_mdl extends CI_Model {
 			'default_value'		=> $data['default_value'],
 			'value'				=> $data['default_value']
 		);
+		
+		// See if there are custom params & add them into a serialized array
+		
+		if( isset( $type->setting_data ) && is_array( $type->setting_data ) ):
+		
+			$params = array();
+		
+			foreach( $type->setting_data as $setting ):
+			
+				if( isset($data[$setting]) ):
+			
+					$params[$setting] = $data[$setting];
+				
+				endif;
+			
+			endforeach;
+		
+			if( count($params) > 0 ):
+			
+				$insert_data['data'] = serialize($params);
+			
+			endif;
+		
+		endif;
 	
 		return $this->db->insert( 'panel_settings', $insert_data );
 	}
@@ -166,9 +191,10 @@ class Settings_mdl extends CI_Model {
 	 * @access	public
 	 * @param	array
 	 * @param	int
+	 * @param	obj
 	 * @return	bool
 	 */	
-	function update_setting( $data, $setting_id )
+	function update_setting( $data, $setting_id, $type )
 	{
 		$update_data = array(
 			'setting_type'		=> $data['setting_type'],
@@ -177,6 +203,36 @@ class Settings_mdl extends CI_Model {
 			'instructions'		=> $data['instructions'],
 			'default_value'		=> $data['default_value'],
 		);
+
+		// See if there are custom params & add them into a serialized array
+		
+		if( isset( $type->setting_data ) && is_array( $type->setting_data ) ):
+		
+			$params = array();
+		
+			foreach( $type->setting_data as $setting ):
+			
+				if( isset($data[$setting]) ):
+			
+					$params[$setting] = $data[$setting];
+				
+				endif;
+			
+			endforeach;
+		
+			if( count($params) > 0 ):
+			
+				$update_data['data'] = serialize($params);
+				
+			else:
+			
+				$update_data['data'] = null;
+			
+			endif;
+		
+		endif;
+		
+		// Update the setting
 		
 		$this->db->where('id', $setting_id);
 	
