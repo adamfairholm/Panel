@@ -61,24 +61,28 @@ class Settings_mdl extends CI_Model {
 	
 		$types = new stdClass;
 
-		$types_files = directory_map(APPPATH.'third_party/panel/settings/');
+		// Get the folders
 
-		foreach( $types_files as $type ):
+		$folders = directory_map(APPPATH.'third_party/panel/settings/');
 
-			$items = explode(".", $type);
+		// Run through them
+		
+		foreach( $folders as $folder => $node ):
+		
+			$setting_file = APPPATH.'third_party/panel/settings/'.$folder.'/setting.'.$folder.EXT;
+		
+			if( file_exists($setting_file) ):
+			
+				require_once($setting_file);
 
-			//If this isn't a setting, forget it
-			if( $items[0] != 'setting' )
-				break;
-
-			$class_name = 'Setting_'.$items[1];
-
-			require_once(APPPATH.'third_party/panel/settings/'.$type);
-
-			$types->$items[1] = new $class_name();
-
+				$class_name = 'Setting_'.$folder;
+	
+				$types->$folder= new $class_name();
+		
+			endif;
+	
 		endforeach;
-
+		
 		return $types;
 	}
 
