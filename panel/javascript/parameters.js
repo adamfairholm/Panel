@@ -7,7 +7,8 @@ $('#setting_type').change(function() {
 		type: "POST",
 		data: { XID:EE.XID, type:setting_type },
 		url:  "http://localhost/ee/TCT/admin/"+EE.BASE+"&C=addons_modules&M=show_module_cp&module=panel&method=show_parameters",
-		success: function(returned_html){		
+		success: function(returned_html){
+			$('.panel_extra_param').remove();
 			jQuery('#setting_settings_table tr:last').after(returned_html);
 		}
 	});
