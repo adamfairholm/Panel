@@ -604,7 +604,12 @@ class Panel_mcp {
 	// --------------------------------------------------------------------------
 	
 	/**
+	 * Show parameters for a new setting
+	 *
 	 * Accessed via AJAX
+	 *
+	 * @access	public
+	 * @return	void
 	 */
 	function show_parameters()
 	{
