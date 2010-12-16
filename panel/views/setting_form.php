@@ -67,6 +67,8 @@
 </tbody>
 </table>
 
+<input type="hidden" value="<?=$setting_id;?>" name="pass_setting_id" id="pass_setting_id" />
+
 <p><?=form_submit('submit', lang('submit'), 'class="submit"')?></p>
 
 <?=form_close()?>

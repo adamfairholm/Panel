@@ -621,10 +621,26 @@ class Panel_mcp {
 	function show_parameters()
 	{
 		$this->EE->load->helper('panel');
-	
+
 		$setting_type = $this->EE->input->get_post('type');
 		
-		$output = extra_rows( $setting_type, $this->types );
+
+		$setting_id = $this->EE->input->get_post('setting_id');
+		
+		// Get setting if there is one
+		
+		if( is_numeric($setting_id) ):
+		
+			$setting = $this->EE->settings_mdl->get_setting($setting_id);
+		
+			$output = extra_rows( $setting_type, $this->types, $setting->data );
+			
+		else:
+		
+			$output = extra_rows( $setting_type, $this->types );
+		
+		endif;
+	
 			
 		ajax_output( $output );
 	}
