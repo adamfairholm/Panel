@@ -2,7 +2,10 @@
 
 $lang['entry'] = array(
 
-'setting_label'					=> "Entry"
+'setting_label'					=> "Entry",
+
+'channel_label'					=> "Channel",
+'channel_instructions'			=> "The channel that the user can choose an entry from."
 
 );
 
