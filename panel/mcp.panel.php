@@ -375,6 +375,7 @@ class Panel_mcp {
 		$vars['settings']			= $settings;
 		$vars['module_base']		= $this->module_base;
 		$vars['panel_id']			= $panel->id;
+		$vars['types']				= $this->types;
 
 		$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_manage_settings').': '.$panel->panel_name);				
 
@@ -451,9 +452,7 @@ class Panel_mcp {
 		// -------------------------------------
 
 		$this->EE->cp->set_breadcrumb($this->module_base, $this->EE->lang->line('panel_module_name'));
-		
 		$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_panels', $this->EE->lang->line('panel_manage_panels'));
-
 		$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_settings'.AMP.'panel_id='.$panel_id, $this->EE->lang->line('panel_manage_settings').': '.$panel->panel_name);
 
 		return $this->_setting_form( $vars );
@@ -535,9 +534,7 @@ class Panel_mcp {
 		// -------------------------------------
 
 		$this->EE->cp->set_breadcrumb($this->module_base, $this->EE->lang->line('panel_module_name'));
-		
 		$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_panels', $this->EE->lang->line('panel_manage_panels'));
-
 		$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_settings'.AMP.'panel_id='.$panel_id, $this->EE->lang->line('panel_manage_settings').': '.$panel->panel_name);
 
 		return $this->_setting_form( $vars );
