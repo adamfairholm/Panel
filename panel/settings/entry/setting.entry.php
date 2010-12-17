@@ -59,12 +59,41 @@ class Setting_entry
 	/**
 	 * Output form input
 	 *
+	 * @access	public
+	 * @param	string
 	 * @param	string
 	 * @param	array
 	 * @return	string
 	 */
-	function form_output( $name, $value = '' )
+	function form_output( $name, $value = '', $data = array() )
 	{
+		if( isset($data['channel']) ):
+		
+			// Get entries for a channel
+			
+			$this->EE->db->where('channel_id', $data['channel']);
+			
+			$obj = $this->EE->db->get('channel_titles');
+		
+			$channels_raw = $obj->result();
+			
+			// Get into drop down
+			
+			$channels = array();
+			
+			foreach( $channels_raw as $channel ):
+			
+				$channels[$channel->entry_id] = $channel->title;
+			
+			endforeach;
+		
+			return form_dropdown( $name, $channels, $value);
+		
+		else:
+			
+			return "No channel set";
+		
+		endif;
 	}
 	
 }
