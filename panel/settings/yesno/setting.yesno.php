@@ -15,11 +15,13 @@ class Setting_yesno
 	/**
 	 * Output form input
 	 *
-	 * @param	array
+	 * @access	public
+	 * @param	string
+	 * @param	string
 	 * @param	array
 	 * @return	string
 	 */
-	function form_output( $name, $value = '' )
+	function form_output( $name, $value = '', $data = array() )
 	{
 		$params['name']		= $name;
 		$params['id']		= $name;
@@ -34,7 +36,7 @@ class Setting_yesno
 		
 		endif;
 		
-		$html = form_radio( $params );
+		$html = form_radio( $params ) . " Yes&nbsp;&nbsp;";
 		
 		// No
 		
@@ -46,7 +48,7 @@ class Setting_yesno
 		
 		endif;
 
-		$html .= form_radio( $params );
+		$html .= form_radio( $params ) . " No";
 		
 		return $html;
 	}

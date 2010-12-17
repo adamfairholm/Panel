@@ -28,7 +28,7 @@ class Settings_mdl extends CI_Model {
 		
 		// Get extra params if they exist
 		
-		if( $setting->data != '' ):
+		if( $setting->data ):
 		
 			$setting->data = unserialize($setting->data);
 		
@@ -51,8 +51,28 @@ class Settings_mdl extends CI_Model {
 		$this->db->where('panel_id', $panel_id);
 		
 		$obj = $this->db->get('panel_settings');
+
+		$settings_raw = $obj->result();
 		
-		return $obj->result();
+		$settings = new stdClass;
+		
+		foreach( $settings_raw as $setting ):
+		
+			$node = $setting->setting_name;
+		
+			$settings->$node = $setting;
+		
+			// Get extra params if they exist
+			
+			if( $settings->$node->data ):
+			
+				$settings->$node->data = unserialize($settings->$node->data);
+			
+			endif;
+
+		endforeach;
+		
+		return $settings;
 	}
 
 	// --------------------------------------------------------------------------

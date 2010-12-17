@@ -21,7 +21,10 @@ class Panel_mcp {
 	 * List out the panels
 	 */
 	function index()
-	{	
+	{
+		$this->EE->load->library('table');
+		$this->EE->load->helper('form');
+		
 		$this->EE->cp->set_right_nav( 
 			array(
 				'panel_manage_panels' 	=> $this->module_base.AMP.'method=manage_panels'
@@ -33,12 +36,41 @@ class Panel_mcp {
 		// -------------------------------------
 		// Get Panels
 		// -------------------------------------
+		
+		$panels = $this->EE->panel_mdl->get_panels();
 
 		// -------------------------------------
-		// Load Page
+		// Get Panels
+		// -------------------------------------
+		
+		foreach( $panels as $panel ):
+		
+			$settings = $this->EE->settings_mdl->get_settings_for_panel( $panel->id );
+			
+			$vars['panel_info'][$panel->id]['name'] = $panel->panel_name;
+		
+			foreach( $settings as $setting ):
+			
+				$vars['panels'][$panel->id][$setting->id] = $setting;
+			
+			endforeach;
+		
+		endforeach;
+
+		// -------------------------------------
+		// Add Accordian Load Page
 		// -------------------------------------
 
-		return $this->EE->load->view('panels', '', TRUE); 
+		$vars['types'] = $this->types;
+
+		$this->EE->cp->add_js_script('ui', 'accordion');
+		$this->EE->javascript->output('
+				$("#my_accordion").accordion({autoHeight: false,header: "h3"});
+			');
+	
+		$this->EE->javascript->compile();
+
+		return $this->EE->load->view('panels', $vars, TRUE); 
 	}
 
 	// --------------------------------------------------------------------------
@@ -339,7 +371,8 @@ class Panel_mcp {
 			'method'		=> $method,
 			'panel_id'		=> $panel_id,
 			'module_base'	=> $this->module_base,
-			'extra_fields'	=> '',
+			'extra_rows'	=> '',
+			'setting_id'	=> '',
 			'setting_type'	=> '',
 			'setting_label'	=> '',
 			'setting_name'	=> '',
