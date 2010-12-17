@@ -87,10 +87,16 @@ class Settings_mdl extends CI_Model {
 		
 		$obj = $this->db->get('panel_settings');
 
+		if( $obj->num_rows() == 0 ):
+		
+			return FALSE;
+		
+		endif;
+
 		$settings_raw = $obj->result();
 		
-		$settings = new stdClass;
-		
+		$settings = new stdClass();
+				
 		foreach( $settings_raw as $setting ):
 		
 			$node = $setting->setting_name;
