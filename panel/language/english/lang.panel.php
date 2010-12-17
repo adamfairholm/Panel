@@ -27,7 +27,8 @@ $lang = array(
 'panel_setting_instr'				=> "Setting Instructions",
 'panel_setting_instr_info'			=> "A line of instructions that explains the setting to the user.",
 'panel_setting_default'				=> "Default Value",
-'panel_setting_default_info'		=> "The default value of the setting before it is changed. Updating this will not affect the setting's value."
+'panel_setting_default_info'		=> "The default value of the setting before it is changed. Updating this will not affect the setting's value.",
+'panel_update_settings'				=> "Update Settings"
 
 );
 

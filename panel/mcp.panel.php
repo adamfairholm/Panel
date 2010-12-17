@@ -22,6 +22,40 @@ class Panel_mcp {
 	 */
 	function index()
 	{
+		// -------------------------------------
+		// Process Panel Data
+		// -------------------------------------
+		
+		if( $this->EE->input->get_post('submit') ):
+		
+			$settings = $this->EE->settings_mdl->get_all_settings();
+			
+			foreach( $settings as $setting ):
+			
+				if( $this->EE->input->get_post($setting->setting_name) ):
+			
+					$update_data['value'] = $this->EE->input->get_post($setting->setting_name);
+					
+					$this->EE->db->where('id', $setting->id);
+					
+					$this->EE->db->update('panel_settings', $update_data);
+					
+					$update_data = array();
+			
+				endif;
+			
+			endforeach;
+		
+			$this->EE->session->set_flashdata('message_success', "Settings updated successfully.");
+			
+			$this->EE->functions->redirect( $this->module_base );
+		
+		endif;
+	
+		// -------------------------------------
+		// Loads and Setup
+		// -------------------------------------
+	
 		$this->EE->load->library('table');
 		$this->EE->load->helper('form');
 		
@@ -61,7 +95,8 @@ class Panel_mcp {
 		// Add Accordian Load Page
 		// -------------------------------------
 
-		$vars['types'] = $this->types;
+		$vars['types'] 			= $this->types;
+		$vars['module_base']	= $this->module_base;
 
 		$this->EE->cp->add_js_script('ui', 'accordion');
 		$this->EE->javascript->output('

@@ -1,6 +1,4 @@
-<?=form_open('C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=my_module', array('id'=>'my_accordion'));?>
-
-
+<?=form_open('C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=panel', array('id'=>'my_accordion'));?>
 
 <?php
 	$this->table->set_template($cp_pad_table_template);
@@ -34,3 +32,7 @@
 </div>
 
 <?php endforeach; ?>
+
+<p><?=form_submit('submit', lang('panel_update_settings'), 'class="submit"')?></p>
+
+<?=form_close()?>

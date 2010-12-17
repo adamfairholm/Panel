@@ -40,6 +40,41 @@ class Settings_mdl extends CI_Model {
 	// --------------------------------------------------------------------------
 	
 	/**
+	 * Get all settings
+	 *
+	 * @access	public
+	 * @return	obj
+	 */
+	function get_all_settings()
+	{
+		$obj = $this->db->get('panel_settings');
+		
+		$settings_raw = $obj->result();
+		
+		$settings = new stdClass;
+		
+		foreach( $settings_raw as $setting ):
+		
+			$node = $setting->setting_name;
+		
+			$settings->$node = $setting;
+		
+			// Get extra params if they exist
+			
+			if( $settings->$node->data ):
+			
+				$settings->$node->data = unserialize($settings->$node->data);
+			
+			endif;
+
+		endforeach;
+		
+		return $settings;
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
 	 * Get the settings for a panel
 	 *
 	 * @access	public
