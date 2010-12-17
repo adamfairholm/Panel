@@ -1,3 +1,5 @@
+<?php if( $panels ): ?>
+
 <?php
 	$this->table->set_template($cp_table_template);
 	$this->table->set_heading(
@@ -14,3 +16,9 @@
 	}
 ?>
 <?=$this->table->generate();?>
+
+<?php else: ?>
+
+	<p><?=lang('panel_no_panels');?> <a href="<?=$module_base.AMP;?>method=new_panel"><?=lang('panel_create_one');?></a><?=lang('panel_question_end');?></p>
+
+<?php endif; ?>
