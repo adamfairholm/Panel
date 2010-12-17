@@ -77,6 +77,8 @@ class Panel_mcp {
 		// Get Panels
 		// -------------------------------------
 		
+		$vars['panels'] = array();
+		
 		foreach( $panels as $panel ):
 		
 			$settings = $this->EE->settings_mdl->get_settings_for_panel( $panel->id );

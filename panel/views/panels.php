@@ -1,3 +1,5 @@
+<?php if( $panels ): ?>
+
 <?=form_open('C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=panel', array('id'=>'my_accordion'));?>
 
 <?php
@@ -36,3 +38,9 @@
 <p><?=form_submit('submit', lang('panel_update_settings'), 'class="submit"')?></p>
 
 <?=form_close()?>
+
+<?php else: ?>
+
+<p>There are no panels yet. Why don't you <a href="<?=$module_base.AMP;?>method=new_panel">set one up</a>?</p>
+
+<?php endif; ?>
