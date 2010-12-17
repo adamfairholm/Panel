@@ -346,6 +346,30 @@ class Settings_mdl extends CI_Model {
 		return $this->db->delete('panel_settings');
 	}
 
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Checks to see if a variable name will conflict with anything else
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	bool
+	 */
+	function is_global_name( $name )
+	{
+		$global_vars = array('app_build', 'app_version', 'charset', 'cp_url', 'current_time', 'debug_mode', 'doc_url', 'elapsed_time', 'email', 'group_id', 'group_title', 'gzip_mode', 'hits', 'homepage', 'ip_address', 'lang', 'location', 'member_group', 'member_id', 'member_profile_link', 'redirect', 'screen_name', 'site_name', 'site_url', 'template_edit_date', 'total_comments', 'total_entries', 'total_queries', 'username', 'webmaster_email');
+		
+		if( in_array(trim($name), $global_vars) ):
+		
+			return FALSE;
+		
+		else:
+
+			return TRUE;
+		
+		endif;
+	}
+
 }
 
 /* End of file settings_mdl.php */

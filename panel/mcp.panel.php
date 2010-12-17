@@ -569,6 +569,14 @@ class Panel_mcp {
 		
 		endif;
 
+		// Is this already a global variable
+		
+		if( ! $this->EE->settings_mdl->is_global_name( $this->EE->input->get_post('setting_name') ) ):
+		
+			$errors[] = "This is a reserved global variable name.";
+		
+		endif;
+
 		// Is the setting name unique?
 		
 		if( ! $this->EE->settings_mdl->is_name_unique( $this->EE->input->get_post('setting_name'), $method ) ):
