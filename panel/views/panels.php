@@ -41,6 +41,6 @@
 
 <?php else: ?>
 
-<p>There are no panels yet. Why don't you <a href="<?=$module_base.AMP;?>method=new_panel">set one up</a>?</p>
+<p><?=lang('panel_no_panels');?> <a href="<?=$module_base.AMP;?>method=new_panel"><?=lang('panel_create_one');?></a><?=lang('panel_question_end');?></p>
 
 <?php endif; ?>

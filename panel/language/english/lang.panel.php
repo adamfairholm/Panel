@@ -28,7 +28,12 @@ $lang = array(
 'panel_setting_instr_info'			=> "A line of instructions that explains the setting to the user.",
 'panel_setting_default'				=> "Default Value",
 'panel_setting_default_info'		=> "The default value of the setting before it is changed. Updating this will not affect the setting's value.",
-'panel_update_settings'				=> "Update Settings"
+'panel_update_settings'				=> "Update Settings",
+
+'panel_no_panels'					=> "There are no panels yet. Why don't you ",
+'panel_no_settings'					=> "There are no settings for this panel yet. Why don't you ",
+'panel_create_one'					=> "create one",
+'panel_question_end'				=> "?"
 
 );
 
