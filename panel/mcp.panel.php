@@ -318,8 +318,9 @@ class Panel_mcp {
 
 		else:
 
-			//$this->cp->set_breadcrumb($this->module_base, $this->lang->line(''));
-			//$this->cp->set_breadcrumb($this->module_base, $this->lang->line(''));
+			$this->EE->cp->set_breadcrumb($this->module_base, $this->EE->lang->line('panel_module_name'));
+			
+			$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_panels', $this->EE->lang->line('panel_manage_panels'));
 			
 			$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_delete_panel'));				
 			
@@ -450,7 +451,10 @@ class Panel_mcp {
 		// -------------------------------------
 
 		$this->EE->cp->set_breadcrumb($this->module_base, $this->EE->lang->line('panel_module_name'));
+		
 		$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_panels', $this->EE->lang->line('panel_manage_panels'));
+
+		$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_settings'.AMP.'panel_id='.$panel_id, $this->EE->lang->line('panel_manage_settings').': '.$panel->panel_name);
 
 		return $this->_setting_form( $vars );
 	}
@@ -467,8 +471,6 @@ class Panel_mcp {
 		$method = 'edit';
 
 		$this->EE->load->helper('panel');
-	
-		$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_edit_setting'));
 	
 		// -------------------------------------
 		// Get Panel & Setting Data
@@ -494,6 +496,8 @@ class Panel_mcp {
 			'default_value'	=> $setting->default_value
 		);
 
+		$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_edit_setting').': '.$setting->setting_label);
+	
 		// Get the extra fields
 		
 		$vars['extra_rows'] = extra_rows( $setting->setting_type, $this->types, $setting->data );
@@ -531,7 +535,10 @@ class Panel_mcp {
 		// -------------------------------------
 
 		$this->EE->cp->set_breadcrumb($this->module_base, $this->EE->lang->line('panel_module_name'));
+		
 		$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_panels', $this->EE->lang->line('panel_manage_panels'));
+
+		$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_settings'.AMP.'panel_id='.$panel_id, $this->EE->lang->line('panel_manage_settings').': '.$panel->panel_name);
 
 		return $this->_setting_form( $vars );
 	}
@@ -644,6 +651,8 @@ class Panel_mcp {
 	{
 		$panel_id = $this->EE->input->get_post('panel_id');
 
+		$panel = $this->EE->panel_mdl->get_panel( $panel_id );
+
 		// -------------------------------------
 		// Get Setting Data
 		// -------------------------------------
@@ -672,6 +681,12 @@ class Panel_mcp {
 		else:
 
 			$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_delete_setting'));				
+
+			$this->EE->cp->set_breadcrumb($this->module_base, $this->EE->lang->line('panel_module_name'));
+			
+			$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_panels', $this->EE->lang->line('panel_manage_panels'));
+	
+			$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_settings'.AMP.'panel_id='.$panel_id, $this->EE->lang->line('panel_manage_settings').': '.$panel->panel_name);
 			
 			return $this->EE->load->view('delete_setting', $vars, TRUE);
 		
