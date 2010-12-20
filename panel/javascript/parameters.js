@@ -9,7 +9,7 @@ $('#setting_type').change(function() {
 		dataType: "text",
 		type: "POST",
 		data: { XID:EE.XID, type:setting_type },
-		url:  "http://localhost/ee/TCT/admin/"+EE.BASE+"&C=addons_modules&M=show_module_cp&module=panel&method=show_parameters&setting_id="+setting_id,
+		url:  EE.BASE+"&C=addons_modules&M=show_module_cp&module=panel&method=show_parameters&setting_id="+setting_id,
 		success: function(returned_html){
 			$('.panel_extra_param').remove();
 			jQuery('#setting_settings_table tr:last').after(returned_html);
@@ -22,7 +22,7 @@ $('#setting_type').change(function() {
 		dataType: "text",
 		type: "POST",
 		data: { XID:EE.XID, type:setting_type },
-		url:  "http://localhost/ee/TCT/admin/"+EE.BASE+"&C=addons_modules&M=show_module_cp&module=panel&method=show_default_value&setting_id="+setting_id,
+		url: EE.BASE+"&C=addons_modules&M=show_module_cp&module=panel&method=show_default_value&setting_id="+setting_id,
 		success: function(returned_html){
 			$('#default_value_input').html(returned_html);
 		}
