@@ -500,6 +500,16 @@ class Panel_mcp {
 		// Get the extra fields
 		
 		$vars['extra_rows'] = extra_rows( $setting->setting_type, $this->types, $setting->data );
+		
+		// Get the right default value format if necessary
+		
+		$type = $setting->setting_type;
+		
+		if( method_exists( $this->types->$type, 'default_value') ):
+		
+			$vars['default_value_input'] = $this->types->$type->default_value( $setting->default_value );
+		
+		endif;
 
 		// -------------------------------------
 		// Process Data
@@ -714,7 +724,6 @@ class Panel_mcp {
 
 		$setting_type = $this->EE->input->get_post('type');
 		
-
 		$setting_id = $this->EE->input->get_post('setting_id');
 		
 		// Get setting if there is one
@@ -731,8 +740,44 @@ class Panel_mcp {
 		
 		endif;
 	
-			
 		ajax_output( $output );
+	}
+
+	function show_default_value()
+	{
+		// Check to see if we have a type
+		
+		if( !$this->EE->input->get_post('type') ):
+		
+			show_error("Invalid Input");
+		
+		endif;
+
+		$type = $this->EE->input->get_post('type');
+		
+		$value = '';
+		
+		// Get the value if we have the setting ID
+		
+		if( $this->EE->input->get_post('setting_id') ):
+		
+			$setting = $this->EE->settings_mdl->get_setting( $this->EE->input->get_post('setting_id') );
+	
+			$value = $setting->default_value;
+			
+		endif;
+		
+		$this->EE->load->helper('panel');
+
+		if( method_exists($this->types->$type, 'default_value') ):
+		
+			ajax_output( $this->types->$type->default_value( $value ) );
+		
+		else:
+		
+			ajax_output( form_input(array('id'=>'default_value','name'=>'default_value','class'=>'fullfield','value'=>$value)) );
+		
+		endif;
 	}
 }
 

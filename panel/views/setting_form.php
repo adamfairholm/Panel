@@ -58,7 +58,15 @@
 			<?=form_label(lang('panel_setting_default'), 'default_value')?><br /><?=lang('panel_setting_default_info')?>
 		</td>
 		<td>
-			<?=form_input(array('id'=>'default_value','name'=>'default_value','class'=>'fullfield','value'=>$default_value))?>
+			<div id="default_value_input">
+			
+			<?php if( isset( $default_value_input ) ): echo $default_value_input; else: ?>
+			
+				<?=form_input(array('id'=>'default_value','name'=>'default_value','class'=>'fullfield','value'=>$default_value));?>
+			
+			<?php endif; ?>
+			
+			</div><!--default_value_input-->
 		</td>
 	</tr>
 	
