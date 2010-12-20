@@ -9,9 +9,9 @@
 
 <?php foreach( $panels as $panel_id => $settings ): ?>
 			
-<div>
 	<h3 class="accordion"><?=$panel_info[$panel_id]['name'];?></h3>
-	<div>
+
+	<div style="padding: 5px 1px;"> 
 	
 	<?php
 	
@@ -29,10 +29,9 @@
 
 		$this->table->clear();
 	?>
+	
 	</div>
 	
-</div>
-
 <?php endforeach; ?>
 
 <p><?=form_submit('submit', lang('panel_update_settings'), 'class="submit"')?></p>
