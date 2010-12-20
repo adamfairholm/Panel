@@ -52,8 +52,26 @@ class Setting_onoff
 		
 		return $html;
 	}
-	
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Custom default value
+	 *
+	 * @access	public
+	 * @param	[string]
+	 * @return	string
+	 */
+	function default_value( $value = '' )
+	{
+		$options = array(
+			'on' 	=> 'On',
+			'off'	=> 'Off'
+		);
+		
+		return form_dropdown( 'default_value', $options, $value);
+	}
 }
 
-/* End of file setting.text.php */
-/* Location: ./expressionengine/third_party/panel/settings/setting.text.php */
+/* End of file setting.onoff.php */
+/* Location: ./expressionengine/third_party/panel/settings/onoff/setting.onoff.php */
