@@ -28,9 +28,9 @@ class Setting_yesno
 		
 		// Yes
 		
-		$params['value']	= 'yes';
+		$params['value']	= 'y';
 		
-		if( $value == 'yes' ):
+		if( $value == 'y' ):
 		
 			$params['checked'] = TRUE;
 		
@@ -40,9 +40,9 @@ class Setting_yesno
 		
 		// No
 		
-		$params['value']	= 'no';
+		$params['value']	= 'n';
 		
-		if( $value == 'no' ):
+		if( $value == 'n' ):
 		
 			$params['checked'] = TRUE;
 		
@@ -65,8 +65,8 @@ class Setting_yesno
 	function default_value( $value = '' )
 	{
 		$options = array(
-			'yes' 	=> 'Yes',
-			'no'	=> 'No'
+			'y' 	=> 'Yes',
+			'n'		=> 'No'
 		);
 		
 		return form_dropdown( 'default_value', $options, $value);
