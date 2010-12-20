@@ -16,7 +16,7 @@
 <thead>
 	<tr>
 		<th colspan="2">
-			Setting Settings
+			<?=lang('panel_setting');?>
 		</th>
 	</tr>
 </thead>

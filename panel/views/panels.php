@@ -15,7 +15,7 @@
 	
 	<?php
 	
-		$this->table->set_heading('Preference', 'Setting');	
+		$this->table->set_heading(lang('panel_preference'), lang('panel_setting'));	
 		
 		foreach( $settings as $setting ):
 		

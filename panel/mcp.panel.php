@@ -1,17 +1,34 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Panel Module for ExpressionEngine 2
+ *
+ * @package		Panel
+ * @category	Modules
+ * @author		Adam Fairholm (Green Egg Media)
+ * @link		http://www.greeneggmedia.com
+ */
 class Panel_mcp {
 	
 	// --------------------------------------------------------------------------
 	
+	/**
+	 * Constructor
+	 */
 	function Panel_mcp()
 	{
 		$this->EE =& get_instance();
+	
+		// Load our setting and panel models
 		
 		$this->EE->load->model( array('panel_mdl', 'settings_mdl') );
 		
+		// Module base is useful down below
+		
 		$this->module_base = $this->EE->config->item('base_url').'admin/'.BASE.AMP.'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=panel';
 
+		// Get our setting types
+	
 		$this->types = $this->EE->settings_mdl->get_setting_types();
 	}
 
@@ -46,7 +63,7 @@ class Panel_mcp {
 			
 			endforeach;
 		
-			$this->EE->session->set_flashdata('message_success', "Settings updated successfully.");
+			$this->EE->session->set_flashdata('message_success', $this->EE->lang->line('panel_settings_updated_s'));
 			
 			$this->EE->functions->redirect( $this->module_base );
 		
@@ -178,19 +195,19 @@ class Panel_mcp {
 		
 			if( $this->EE->input->get_post('panel_name') == '' ):
 			
-				show_error("You must provide a panel name");
+				show_error( $this->EE->lang->line('panel_provide_panel_name') );
 			
 			endif;
 			
 			if( $this->EE->panel_mdl->add_panel( $this->EE->input->get_post('panel_name') ) ):
 			
-				$this->EE->session->set_flashdata('message_success', "Panel added successfully");
+				$this->EE->session->set_flashdata('message_success', $this->EE->lang->line('panel_add_s'));
 				
 				$this->EE->functions->redirect( $this->module_base.AMP.'method=manage_panels' );
 			
 			else:
 			
-				show_error("There was a problem with adding your panel");
+				show_error( $this->EE->lang->line('panel_add_e') );
 			
 			endif;
 		
@@ -223,19 +240,19 @@ class Panel_mcp {
 		
 			if( $this->EE->input->get_post('panel_name') == '' ):
 			
-				show_error("You must provide a panel name");
+				show_error( $this->EE->input->post('panel_provide_panel_name') );
 			
 			endif;
 			
 			if( $this->EE->panel_mdl->update_panel( $this->EE->input->get_post('id'), $this->EE->input->get_post('panel_name') ) ):
 			
-				$this->EE->session->set_flashdata('message_success', "Panel updated successfully");
+				$this->EE->session->set_flashdata('message_success', $this->EE->lang->line('panel_upd_s'));
 				
 				$this->EE->functions->redirect( $this->module_base.AMP.'method=manage_panels' );
 			
 			else:
 			
-				show_error("There was a problem with updating this panel");
+				show_error($this->EE->lang->line('panel_upd_e'));
 			
 			endif;
 		
@@ -435,13 +452,13 @@ class Panel_mcp {
 					
 			if( $this->EE->settings_mdl->add_setting( $_POST, $panel_id, $this->types->$type ) ):
 			
-				$this->EE->session->set_flashdata('message_success', "Setting added to panel successfully");
+				$this->EE->session->set_flashdata('message_success', $this->EE->lang->line('panel_setting_add_s'));
 				
 				$this->EE->functions->redirect( $this->module_base.AMP.'method=manage_panels' );
 			
 			else:
 			
-				show_error("There was a problem with adding this setting");
+				show_error( $this->EE->lang->line('panel_setting_add_e') );
 			
 			endif;
 		
@@ -527,13 +544,13 @@ class Panel_mcp {
 					
 			if( $this->EE->settings_mdl->update_setting( $_POST, $setting_id, $this->types->$type ) ):
 			
-				$this->EE->session->set_flashdata('message_success', "Setting updated successfully");
+				$this->EE->session->set_flashdata('message_success', $this->EE->lang->line('panel_setting_upd_s'));
 				
 				$this->EE->functions->redirect( $this->module_base.AMP.'method=manage_panels' );
 			
 			else:
 			
-				show_error("There was a problem with updating this setting");
+				show_error( $this->EE->lang->line('panel_setting_upd_e') );
 			
 			endif;
 		
@@ -567,7 +584,7 @@ class Panel_mcp {
 	
 		if( $this->EE->input->get_post('setting_type') == '-' ):
 		
-			$errors[] = "You must choose a setting type.";
+			$errors[] = $this->EE->lang->line('panel_err_setting_type');
 		
 		endif;
 		
@@ -575,7 +592,7 @@ class Panel_mcp {
 	
 		if( $this->EE->input->get_post('setting_label') == '' ):
 		
-			$errors[] = "The Settings Label field is required.";
+			$errors[] = $this->EE->lang->line('panel_err_setting_label');
 		
 		endif;
 
@@ -583,7 +600,7 @@ class Panel_mcp {
 		
 		if( $this->EE->input->get_post('setting_name') == '' ):
 		
-			$errors[] = "The Settings Name field is required.";
+			$errors[] = $this->EE->lang->line('panel_err_setting_name');
 		
 		endif;
 
@@ -591,7 +608,7 @@ class Panel_mcp {
 		
 		if( ! $this->EE->settings_mdl->is_global_name( $this->EE->input->get_post('setting_name') ) ):
 		
-			$errors[] = "This is a reserved global variable name.";
+			$errors[] = $this->EE->lang->line('panel_err_global_name');
 		
 		endif;
 
@@ -599,7 +616,7 @@ class Panel_mcp {
 		
 		if( ! $this->EE->settings_mdl->is_name_unique( $this->EE->input->get_post('setting_name'), $method ) ):
 		
-			$errors[] = "There is already a setting with this name.";
+			$errors[] = $this->EE->lang->line('panel_err_setting_dupe');
 		
 		endif;
 	
@@ -635,7 +652,7 @@ class Panel_mcp {
 		// Get the types & create an array
 		// -------------------------------------
 		
-		$vars['setting_types']['-'] = "--Pick a Setting Type--";
+		$vars['setting_types']['-'] = "--".$this->EE->lang->line('panel_pick_setting_type')."--";
 
 		foreach( $this->types as $type ):
 		
@@ -697,7 +714,7 @@ class Panel_mcp {
 		
 			$this->EE->settings_mdl->delete_setting( $setting_id );
 			
-			$this->EE->session->set_flashdata('message_success', "Setting deleted successfully");
+			$this->EE->session->set_flashdata('message_success', $this->EE->lang->line('panel_setting_del_s'));
 			
 			$this->EE->functions->redirect( $this->module_base.AMP.'method=manage_settings'.AMP.'panel_id='.$panel_id );
 
@@ -751,6 +768,11 @@ class Panel_mcp {
 		ajax_output( $output );
 	}
 
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Show the default value for a setting
+	 */
 	function show_default_value()
 	{
 		// Check to see if we have a type
