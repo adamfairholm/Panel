@@ -562,6 +562,14 @@ class Panel_mcp {
 		// -------------------------------------
 	
 		$errors = array();
+
+		// Do we have a setting?
+	
+		if( $this->EE->input->get_post('setting_type') == '-' ):
+		
+			$errors[] = "You must choose a setting type.";
+		
+		endif;
 		
 		// Do we have a setting label?
 	
