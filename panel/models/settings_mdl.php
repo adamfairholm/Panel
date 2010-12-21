@@ -345,6 +345,34 @@ class Settings_mdl extends CI_Model {
 	
 		return $this->db->delete('panel_settings');
 	}
+	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Resets all settings to their default values
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
+	function reset_settings()
+	{
+		$settings = $this->get_all_settings();
+		
+		$outcome = TRUE;
+	
+		foreach( $settings as $setting ):
+		
+			$update_data['value'] = $setting->default_value;
+			
+			$this->db->where('id', $setting->id);
+			$outcome = $this->db->update('panel_settings', $update_data);
+			
+			$update_data = array();
+		
+		endforeach;
+		
+		return $outcome;
+	}
 
 	// --------------------------------------------------------------------------
 	

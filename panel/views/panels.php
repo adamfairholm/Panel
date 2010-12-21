@@ -62,7 +62,7 @@
 	
 <?php endforeach; ?>
 
-<p><?=form_submit('submit', lang('panel_update_settings'), 'class="submit"')?></p>
+<p><?=form_submit('submit', lang('panel_update_settings'), 'class="submit"')?> <a href="<?=$module_base.AMP;?>method=reset_defaults"><?=lang('panel_reset');?></a></p>
 
 <?=form_close()?>
 

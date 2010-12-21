@@ -20,6 +20,7 @@ $lang = array(
 
 'panel_delete_this_panel'			=> "Are you sure you want to delete this panel? It will delete all associated settings.",
 'panel_delete_this_setting'			=> "Are you sure you want to delete this setting? It will no longer be available in your templates.",
+'panel_reset_settings_msg'			=> "Are you sure you want to reset all the settings to the default values?",
 
 'panel_setting_type'				=> "Setting Type",
 'panel_setting_label'				=> "Setting Label",
@@ -32,6 +33,8 @@ $lang = array(
 'panel_setting_default_info'		=> "The default value of the setting before it is changed. Updating this will not affect the setting's value.",
 'panel_update_settings'				=> "Update Settings",
 'panel_pick_setting_type'			=> "Pick a Setting Type",
+'panel_reset'						=> "Reset Settings to Default",
+'panel_reset_s'						=> "Panel settings reset successfully",
 
 'panel_no_panels'					=> "There are no panels yet. Why don't you ",
 'panel_no_settings'					=> "There are no settings for this panel yet. Why don't you ",

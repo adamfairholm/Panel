@@ -740,6 +740,40 @@ class Panel_mcp {
 	}
 
 	// --------------------------------------------------------------------------
+
+	/**
+	 * Reset all settings back to the defaults
+	 *
+	 * @access 	public
+	 */
+	function reset_defaults()
+	{
+		// -------------------------------------
+		// Process Reset
+		// -------------------------------------
+
+		if( $this->EE->input->get_post('reset_confirm') == TRUE ):
+		
+			$this->EE->settings_mdl->reset_settings();
+			
+			$this->EE->session->set_flashdata('message_success', $this->EE->lang->line('panel_reset_s'));
+			
+			$this->EE->functions->redirect( $this->module_base );
+
+		else:
+
+			$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_reset'));
+					
+			$this->EE->cp->set_breadcrumb($this->module_base, $this->EE->lang->line('panel_module_name'));
+			
+			$this->EE->cp->set_breadcrumb($this->module_base.AMP.'method=manage_panels', $this->EE->lang->line('panel_manage_panels'));
+			
+			return $this->EE->load->view('reset_defaults', '', TRUE);
+		
+		endif;
+	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Show parameters for a new setting
