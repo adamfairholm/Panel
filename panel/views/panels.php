@@ -17,6 +17,8 @@
 	
 		$this->table->set_heading(lang('panel_preference'), lang('panel_setting'));	
 		
+		if( $settings ):
+		
 		foreach( $settings as $setting ):
 		
 			$setting_type = $setting->setting_type;
@@ -44,9 +46,16 @@
 		
 		endforeach;
 
-		echo $this->table->generate();
-
-		$this->table->clear();
+			echo $this->table->generate();
+		
+			$this->table->clear();
+		
+		else:
+		
+			echo '<p><em>'.lang('panel_no_settings_msg').'</em></p>';
+		
+		endif;
+		
 	?>
 	
 	</div>

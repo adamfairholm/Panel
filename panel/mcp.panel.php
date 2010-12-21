@@ -98,15 +98,21 @@ class Panel_mcp {
 		
 		foreach( $panels as $panel ):
 		
+			$vars['panels'][$panel->id] = array();
+		
 			$settings = $this->EE->settings_mdl->get_settings_for_panel( $panel->id );
 			
 			$vars['panel_info'][$panel->id]['name'] = $panel->panel_name;
+			
+			if( $settings ):
 		
 			foreach( $settings as $setting ):
 			
 				$vars['panels'][$panel->id][$setting->id] = $setting;
 			
 			endforeach;
+			
+			endif;
 		
 		endforeach;
 

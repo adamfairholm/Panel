@@ -35,6 +35,7 @@ $lang = array(
 
 'panel_no_panels'					=> "There are no panels yet. Why don't you ",
 'panel_no_settings'					=> "There are no settings for this panel yet. Why don't you ",
+'panel_no_settings_msg'				=> "There are no settings for this panel.",
 'panel_create_one'					=> "create one",
 'panel_question_end'				=> "?",
 
