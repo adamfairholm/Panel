@@ -27,9 +27,9 @@ class Setting_yesno
 		$params['id']		= $name;
 		
 		// Yes
-		
+
 		$params['value']	= 'y';
-		
+				
 		if( $value == 'y' ):
 		
 			$params['checked'] = TRUE;
@@ -39,12 +39,16 @@ class Setting_yesno
 		$html = form_radio( $params ) . " Yes&nbsp;&nbsp;";
 		
 		// No
-		
+
 		$params['value']	= 'n';
-		
+
 		if( $value == 'n' ):
 		
 			$params['checked'] = TRUE;
+			
+		else:
+		
+			$params['checked'] = FALSE;
 		
 		endif;
 

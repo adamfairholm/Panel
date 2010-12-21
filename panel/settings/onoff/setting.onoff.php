@@ -45,6 +45,10 @@ class Setting_onoff
 		if( $value == 'off' ):
 		
 			$params['checked'] = TRUE;
+			
+		else:
+		
+			$params['checked'] = FALSE;
 		
 		endif;
 
