@@ -24,11 +24,12 @@ class Setting_yesno
 	function form_output( $name, $value = '', $data = array() )
 	{
 		$params['name']		= $name;
-		$params['id']		= $name;
 		
 		// Yes
 
 		$params['value']	= 'y';
+		$params['label']	= 'yes';
+		$params['id']		= $name.'_y';
 				
 		if( $value == 'y' ):
 		
@@ -36,11 +37,13 @@ class Setting_yesno
 		
 		endif;
 		
-		$html = form_radio( $params ) . " Yes&nbsp;&nbsp;";
+		$html = form_radio( $params ) . ' <label for="'.$params['id'].'">' . $this->lang['setting_yes'] . "</label>&nbsp;&nbsp;&nbsp;&nbsp;";
 		
 		// No
 
 		$params['value']	= 'n';
+		$params['label']	= 'no';
+		$params['id']		= $name.'_n';
 
 		if( $value == 'n' ):
 		
@@ -52,7 +55,7 @@ class Setting_yesno
 		
 		endif;
 
-		$html .= form_radio( $params ) . " No";
+		$html .= form_radio( $params ) . ' <label for="'.$params['id'].'">' . $this->lang['setting_no'];
 		
 		return $html;
 	}

@@ -2,7 +2,10 @@
 
 $lang['onoff'] = array(
 
-'setting_label'					=> "On/Off"
+'setting_label'					=> "On/Off",
+
+'setting_on'					=> "On",
+'setting_off'					=> "Off"
 
 );
 

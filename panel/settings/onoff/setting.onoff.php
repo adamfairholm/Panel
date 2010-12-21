@@ -24,11 +24,12 @@ class Setting_onoff
 	function form_output( $name, $value = '', $data = array() )
 	{
 		$params['name']		= $name;
-		$params['id']		= $name;
 		
 		// Yes
 		
 		$params['value']	= 'on';
+		$params['label']	= 'on';
+		$params['id']		= $name.'_on';
 		
 		if( $value == 'on' ):
 		
@@ -36,11 +37,13 @@ class Setting_onoff
 		
 		endif;
 		
-		$html = form_radio( $params ) . " On&nbsp;&nbsp;";
+		$html = form_radio( $params ) . ' <label for="'.$params['id'].'">' . $this->lang['setting_on'] . "</label>&nbsp;&nbsp;&nbsp;&nbsp;";
 		
 		// No
 		
 		$params['value']	= 'off';
+		$params['label']	= 'off';
+		$params['id']		= $name.'_off';
 		
 		if( $value == 'off' ):
 		
@@ -52,7 +55,7 @@ class Setting_onoff
 		
 		endif;
 
-		$html .= form_radio( $params ) . " Off";
+		$html .= form_radio( $params ) . ' <label for="'.$params['id'].'">' . $this->lang['setting_off'] . '</label>';
 		
 		return $html;
 	}
