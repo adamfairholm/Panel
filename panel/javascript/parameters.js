@@ -12,7 +12,7 @@ $('#setting_type').change(function() {
 		url:  EE.BASE+"&C=addons_modules&M=show_module_cp&module=panel&method=show_parameters&setting_id="+setting_id,
 		success: function(returned_html){
 			$('.panel_extra_param').remove();
-			jQuery('#setting_settings_table tr:last').after(returned_html);
+			$('#setting_settings_table').append(returned_html);
 		}
 	});
 	
@@ -27,6 +27,5 @@ $('#setting_type').change(function() {
 			$('#default_value_input').html(returned_html);
 		}
 	});
-
 
 });
