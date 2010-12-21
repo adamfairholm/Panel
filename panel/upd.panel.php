@@ -11,6 +11,14 @@ class Panel_upd {
 
 	// --------------------------------------------------------------------------
 	   
+	/**
+	 * Install
+	 *
+	 * Installs the module
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
     function install()
     {
 		$outcome = TRUE;
@@ -43,7 +51,7 @@ class Panel_upd {
             'setting_label' => array( 'type' => 'VARCHAR', 'constraint' => 100 ),
             'setting_name' 	=> array( 'type' => 'VARCHAR', 'constraint' => 100 ),
             'instructions' 	=> array( 'type' => 'VARCHAR', 'constraint' => 255 ),
-            'data' => array( 'type' => 'TEXT' ),
+            'data' 			=> array( 'type' => 'TEXT' ),
            	'default_value' => array( 'type' => 'TEXT' ),
            	'value' 		=> array( 'type' => 'TEXT' )
         );
@@ -70,32 +78,47 @@ class Panel_upd {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Update
+	 *
+	 * There is currently no update functionality
+	 */
 	function update($current = '')
 	{
-	
 		return FALSE;
 	}
 
 	// --------------------------------------------------------------------------
 	
+	/**
+	 * Uninstall
+	 *
+	 * Uninstalls the module
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
 	function uninstall()
 	{
 		$this->EE->load->dbforge();
 
-		$outcome = TRUE;
-		
 		// Drop log table
 	
-		$outcome = $this->EE->dbforge->drop_table('panels');
+		$this->EE->dbforge->drop_table('panels');
 
 		// Drop scratch table
 
-		$outcome = $this->EE->dbforge->drop_table('panel_settings');
+		$this->EE->dbforge->drop_table('panel_settings');
+		
+		// Remove from the modules table
+		
+		$this->EE->db->where('module_name', 'Panel');
+		$this->EE->db->delete('modules');
 	
-		return $outcome;
+		return TRUE;
 	}
 	
 }
 
-/* End of file upd.trigger.php */
-/* Location: ./expressionengine/third_party/trigger/upd.trigger.php */
+/* End of file upd.panel.php */
+/* Location: ./system/expressionengine/third_party/panel/upd.panel.php */
