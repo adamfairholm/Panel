@@ -9,6 +9,8 @@
 class Setting_textarea
 {
 	var $setting_type_name			= 'textarea';
+	
+	var $use_label					= TRUE;
 
 	/**
 	 * Output form input

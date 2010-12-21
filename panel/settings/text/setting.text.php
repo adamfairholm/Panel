@@ -10,6 +10,8 @@ class Setting_text
 {
 	var $setting_type_name			= 'text';
 
+	var $use_label					= TRUE;
+
 	/**
 	 * Output form input
 	 *

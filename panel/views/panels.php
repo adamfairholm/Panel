@@ -20,8 +20,27 @@
 		foreach( $settings as $setting ):
 		
 			$setting_type = $setting->setting_type;
+			
+			if( isset($types->$setting_type->use_label) && $types->$setting_type->use_label ):
+
+				$label = '<strong><label for="'.$setting->setting_name.'">'.$setting->setting_label.'</label></strong>';
+			
+			else:
+
+				$label = '<strong>'.$setting->setting_label.'</strong>';
+			
+			endif;
+			
+
+			// Add in instructions
+
+			if( $setting->instructions ):
+			
+				$label .= '<div class="subtext">' . $setting->instructions . '</div>';
+				
+			endif;
 	
-			$this->table->add_row($setting->setting_label, $types->$setting_type->form_output( $setting->setting_name, $setting->value, $setting->data ) );
+			$this->table->add_row($label, $types->$setting_type->form_output( $setting->setting_name, $setting->value, $setting->data ) );
 		
 		endforeach;
 
