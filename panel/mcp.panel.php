@@ -18,14 +18,16 @@ class Panel_mcp {
 	function Panel_mcp()
 	{
 		$this->EE =& get_instance();
-	
+			
 		// Load our setting and panel models
 		
 		$this->EE->load->model( array('panel_mdl', 'settings_mdl') );
 		
 		// Module base is useful down below
 		
-		$this->module_base = $this->EE->config->item('base_url').'admin/'.BASE.AMP.'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=panel';
+		$this->module_base = 	$this->EE->config->item('base_url').
+								SYSDIR.'/'.
+								BASE.AMP.'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=panel';
 
 		// Get our setting types
 	
