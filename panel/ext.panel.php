@@ -1,9 +1,15 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Panel Extension
+ *
+ * @author		Adam Fairholm (Addict Addons)
+ * @link		http://addictaddons.com
+ */
 class Panel_ext {
 
     var $name 				= 'Panel Extenson';
-    var $version 			= '0.1';
+    var $version 			= '0.9 Beta';
     var $description 		= 'Adds panel settings into global variables';
     var $settings_exist 	= 'n';
     var $docs_url 			= '';

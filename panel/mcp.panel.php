@@ -5,8 +5,8 @@
  *
  * @package		Panel
  * @category	Modules
- * @author		Adam Fairholm (Green Egg Media)
- * @link		http://www.greeneggmedia.com
+ * @author		Adam Fairholm (Addict Addons)
+ * @link		http://addictaddons.com
  */
 class Panel_mcp {
 	

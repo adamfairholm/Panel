@@ -2,7 +2,7 @@
 
 class Panel_upd { 
 
-    var $version        = '0.1 Alpha'; 
+    var $version        = '0.9 Beta'; 
      
     function Panel_upd() 
     { 
