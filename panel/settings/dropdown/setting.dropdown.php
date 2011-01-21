@@ -55,9 +55,11 @@ class Setting_dropdown
 	 */
 	function form_output( $name, $value = '', $data = array() )
 	{
-		if( isset($data['content']) ):
+		$items = array();
 		
-			$items = array();
+		$items[''] = $this->EE->lang->line('panel_choose_value');
+	
+		if( isset($data['content']) ):
 		
 			$lines = explode("\n", $data['content']);
 			
