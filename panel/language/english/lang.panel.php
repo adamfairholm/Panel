@@ -26,7 +26,7 @@ $lang = array(
 'panel_setting_label'				=> "Setting Label",
 'panel_setting_label_info'			=> "Full name of the setting",
 'panel_setting_name'				=> "Setting Name",
-'panel_setting_name_info'			=> "The variable name you'll use in templates. Not spaces, all lower case.",
+'panel_setting_name_info'			=> "The variable name you'll use in templates. No spaces, all lower case.",
 'panel_setting_instr'				=> "Setting Instructions",
 'panel_setting_instr_info'			=> "A line of instructions that explains the setting to the user.",
 'panel_setting_default'				=> "Default Value",
@@ -58,7 +58,9 @@ $lang = array(
 'panel_err_setting_label'			=> "The Settings Label field is required",
 'panel_err_setting_name'			=> "The Settings Name field is required",
 'panel_err_global_name'				=> "This is a reserved global variable name.",
-'panel_err_setting_dupe'			=> "There is already a setting with this name."
+'panel_err_setting_dupe'			=> "There is already a setting with this name.",
+
+'panel_choose_value'				=> "--Choose Value--"
 
 );
 
