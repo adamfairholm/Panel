@@ -1,12 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * Panel Module for ExpressionEngine 2
+ * Panel Module
  *
- * @package		Panel
- * @category	Modules
- * @author		Adam Fairholm (Addict Addons)
- * @link		http://addictaddons.com
+ * @author		Addict Add-ons Dev Team
+ * @copyright	Copyright (c) 2011, Addict Add-ons
+ * @link		http://addictaddons.com/panel
+ * @license		http://addictaddons.com/panel/license
  */
 class Panel_mcp {
 	

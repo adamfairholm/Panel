@@ -1,6 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
+ * Panel Helper
+ *
+ * @author		Addict Add-ons Dev Team
+ * @copyright	Copyright (c) 2011, Addict Add-ons
+ * @link		http://addictaddons.com/panel
+ * @license		http://addictaddons.com/panel/license
+ */
+
+// --------------------------------------------------------------------------
+
+/**
  * Bypass everything and output a string.
  *
  * For use with AJAX outputs

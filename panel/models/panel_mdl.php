@@ -1,5 +1,13 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Panel Model
+ *
+ * @author		Addict Add-ons Dev Team
+ * @copyright	Copyright (c) 2011, Addict Add-ons
+ * @link		http://addictaddons.com/panel
+ * @license		http://addictaddons.com/panel/license
+ */
 class Panel_mdl extends CI_Model {
 
 	function Panel_mdl()

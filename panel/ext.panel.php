@@ -3,13 +3,15 @@
 /**
  * Panel Extension
  *
- * @author		Adam Fairholm (Addict Addons)
- * @link		http://addictaddons.com
+ * @author		Addict Add-ons Dev Team
+ * @copyright	Copyright (c) 2011, Addict Add-ons
+ * @link		http://addictaddons.com/panel
+ * @license		http://addictaddons.com/panel/license
  */
 class Panel_ext {
 
     var $name 				= 'Panel Extenson';
-    var $version 			= '0.9 Beta';
+    var $version 			= '0.9.2';
     var $description 		= 'Adds panel settings into global variables';
     var $settings_exist 	= 'n';
     var $docs_url 			= '';

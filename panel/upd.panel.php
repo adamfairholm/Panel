@@ -1,8 +1,16 @@
 <?php if (! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Panel Update File
+ *
+ * @author		Addict Add-ons Dev Team
+ * @copyright	Copyright (c) 2011, Addict Add-ons
+ * @link		http://addictaddons.com/panel
+ * @license		http://addictaddons.com/panel/license
+ */
 class Panel_upd { 
 
-    var $version        = '0.9 Beta'; 
+    var $version        = '0.9.2'; 
      
     function Panel_upd() 
     { 
