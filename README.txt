@@ -1,7 +1,7 @@
-Panel v0.9.1 Beta
+Panel v1.0
 =====================
 by Addict Add-ons
-addictaddons.com
+www.addictaddons.com
 =====================
 
 Welcome to Panel! This is your README.txt file. Looks like you are good at following things files command you to do.
@@ -11,17 +11,32 @@ Installation
 
 Drop the 'panel' folder into system/expressionengine/third_party. Install via the Add-Ons -> Modules page. Make sure to install the extension and the module.
 
-Usage
-=====
+Documentation
+=============
 
-You start by creating a new "panel" and then adding settings to it. Your panel settings can be accessed like global variables. So, for instance, if you have a Twitter handle setting and you named it twitter_handle, then that would be available as {twitter_handle} in your layouts.
+You can find all the documentation here:
 
-For entry settings, the variable returns the id of the entry, so you can use it in a channel entry tag loop:
+http://www.addictaddons.com/panel/docs
 
-{exp:channel:entries channel="blog_posts" entry_id="{featured_post}"}
+Support
+=======
 
-	<h2>{title}</h2>
+Something go wrong? We are here for you. Our primary place of support is our support forums which you can find here:
 
-{/exp:channel:entries}
+http://addictaddons.com/forums
 
-For On/Off, Yes/No settings, the setting returns 'on' or 'off'/'yes' or 'no' in your layouts.
+We monitor those forums are respond as quickly as possible. You can also search for other problems similar to yours on the forums or talk about anything else related to Panel or our other add-ons.
+
+Change Log
+==========
+
+A change log for Panel is available here:
+
+http://addictaddons.com/panel/docs/getting-started/change-log
+
+License
+=======
+
+A copy of the Panel license was included with your download. You can always get a copy of it here if you really like it or something.
+
+http://addictaddons.com/licenses/panel_license.txt
