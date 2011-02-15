@@ -28,6 +28,25 @@ class Panel_mdl extends CI_Model {
 	{
 		$insert_data['panel_name']		= $panel_name;
 		
+		// Find the +1 of the order
+		$this->db->limit(1);
+		$this->db->select("MAX(sort_order) as last_number");
+		$obj = $this->db->get('panels');
+		
+		if( $obj->num_rows() == 0 ):
+		
+			$sort = 1;
+		
+		else:
+		
+			$row = $obj->row();
+			
+			$sort = $row->last_number + 1;
+		
+		endif;
+		
+		$insert_data['sort_order']		= $sort;
+		
 		return $this->db->insert('panels', $insert_data);
 	}
 

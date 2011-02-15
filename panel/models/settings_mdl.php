@@ -236,6 +236,26 @@ class Settings_mdl extends CI_Model {
 			'default_value'		=> $data['default_value'],
 			'value'				=> $data['default_value']
 		);
+
+		// Find the +1 of the order
+		$this->db->limit(1);
+		$this->db->select("MAX(sort_order) as last_number");
+		$this->db->where('panel_id', $panel_id);
+		$obj = $this->db->get('panel_settings');
+		
+		if( $obj->num_rows() == 0 ):
+		
+			$sort = 1;
+		
+		else:
+		
+			$row = $obj->row();
+			
+			$sort = $row->last_number + 1;
+		
+		endif;
+		
+		$insert_data['sort_order']		= $sort;
 		
 		// See if there are custom params & add them into a serialized array
 		
