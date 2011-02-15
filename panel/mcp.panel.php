@@ -51,7 +51,7 @@ class Panel_mcp {
 			
 			foreach( $settings as $setting ):
 			
-				if( $this->EE->input->get_post($setting->setting_name) ):
+				if( $this->EE->input->get_post($setting->setting_name) !== FALSE ):
 			
 					$update_data['value'] = $this->EE->input->get_post($setting->setting_name);
 					
@@ -93,7 +93,7 @@ class Panel_mcp {
 		$panels = $this->EE->panel_mdl->get_panels();
 
 		// -------------------------------------
-		// Get Panels
+		// Get Settings
 		// -------------------------------------
 		
 		$vars['panels'] = array();
