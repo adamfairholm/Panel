@@ -10,7 +10,7 @@
  */
 class Panel_upd { 
 
-    var $version        = '0.9.2'; 
+    var $version        = '1.0'; 
      
     function Panel_upd() 
     { 

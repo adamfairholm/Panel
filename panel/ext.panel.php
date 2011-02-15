@@ -11,7 +11,7 @@
 class Panel_ext {
 
     var $name 				= 'Panel Extenson';
-    var $version 			= '0.9.2';
+    var $version 			= '1.0';
     var $description 		= 'Adds panel settings into global variables';
     var $settings_exist 	= 'n';
     var $docs_url 			= '';
