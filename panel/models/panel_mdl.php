@@ -10,9 +10,9 @@
  */
 class Panel_mdl extends CI_Model {
 
-	function Panel_mdl()
+	function __construct()
 	{
-		parent::CI_Model();
+		parent::__construct();
     }
 
 	// --------------------------------------------------------------------------

@@ -10,9 +10,9 @@
  */
 class Settings_mdl extends CI_Model {
 
-	function Settings_mdl()
+	function __construct()
 	{
-		parent::CI_Model();
+		parent::__construct();
     }
 
 	// --------------------------------------------------------------------------
