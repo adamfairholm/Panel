@@ -1,4 +1,4 @@
-Panel v1.0.1
+Panel v1.0.2
 =====================
 by Addict Add-ons
 www.addictaddons.com
