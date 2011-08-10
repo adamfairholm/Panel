@@ -1,22 +1,24 @@
 <?php if( $panels ): ?>
 
-<?php echo form_open('C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=panel', array('id'=>'my_accordion'));?>
-
-<?php
-	$this->table->set_template($cp_pad_table_template);
-	$this->table->template['thead_open'] = '<thead class="visualEscapism">';
-?>
+<?php echo form_open('C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=panel');?>
 
 <?php foreach( $panels as $panel_id => $settings ): ?>
-			
-	<h3 class="accordion"><?php echo $panel_info[$panel_id]['name'];?></h3>
 
-	<div style="padding: 5px 1px;"> 
+<table class="mainTable padTable" border="0" cellspacing="0" cellpadding="0">
+
+	<caption><?php echo $panel_info[$panel_id]['name']; ?></caption>
 	
+	<thead class="visualEscapism">
+		<tr>
+			<th><?php echo lang('panel_preference'); ?></th>
+			<th><?php echo lang('panel_setting'); ?></th>
+		</tr>
+	</thead>
+	
+	<tbody>
+
 	<?php
 	
-		$this->table->set_heading(lang('panel_preference'), lang('panel_setting'));	
-		
 		if( $settings ):
 		
 		foreach( $settings as $setting ):
@@ -32,7 +34,6 @@
 				$label = '<strong>'.$setting->setting_label.'</strong>';
 			
 			endif;
-			
 
 			// Add in instructions
 
@@ -40,25 +41,25 @@
 			
 				$label .= '<div class="subtext">' . $setting->instructions . '</div>';
 				
-			endif;
-	
-			$this->table->add_row($label, $types->$setting_type->form_output( $setting->setting_name, $setting->value, $setting->data ) );
+			endif; ?>
+			
+			<tr class="even">
+				<td width="200"><?php echo $label; ?></td>
+				<td><?php echo $types->$setting_type->form_output( $setting->setting_name, $setting->value, $setting->data); ?></td>			
+			</tr>
 		
-		endforeach;
-
-			echo $this->table->generate();
-		
-			$this->table->clear();
+		<?php endforeach;
 		
 		else:
 		
-			echo '<p><em>'.lang('panel_no_settings_msg').'</em></p>';
+			echo '<tr><td colspan="2"><em>'.lang('panel_no_settings_msg').'</em></td></tr>';
 		
 		endif;
 		
 	?>
 	
-	</div>
+	</tbody>
+	</table>
 	
 <?php endforeach; ?>
 
