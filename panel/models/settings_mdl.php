@@ -126,11 +126,9 @@ class Settings_mdl extends CI_Model {
 		$types = new stdClass;
 
 		// Get the folders
-
 		$folders = directory_map(APPPATH.'third_party/panel/settings/');
 
-		// Run through them
-		
+		// Run through them		
 		foreach( $folders as $folder => $node ):
 		
 			$setting_path = APPPATH.'third_party/panel/settings/'.$folder.'/';
@@ -146,14 +144,26 @@ class Settings_mdl extends CI_Model {
 			endif;
 			
 			// Add language files
+			$panel_lang = $this->config->item('deft_lang');
 			
-			if( file_exists($setting_path.'language/'.$this->config->item('deft_lang').'/lang.'.$folder.EXT) ):
+			// Do we have this language? If not, default to english
+			if( !file_exists($setting_path.'language/'.$panel_lang.'/lang.'.$folder.'.php') ):
 			
-				require_once($setting_path.'language/'.$this->config->item('deft_lang').'/lang.'.$folder.EXT);
+				if(file_exists($setting_path.'language/'.$panel_lang.'/lang.'.$folder.'.php')):
 			
-				$types->$folder->lang = $lang[$folder];
+					$panel_lang = 'english';
+				
+				else:
+				
+					show_error("No valid language found for panel setting: ".$folder);
+				
+				endif;
 			
 			endif;
+			
+			@require_once($setting_path.'language/'.$panel_lang.'/lang.'.$folder.'.php');
+		
+			$types->$folder->lang = $lang[$folder];
 	
 		endforeach;
 		
