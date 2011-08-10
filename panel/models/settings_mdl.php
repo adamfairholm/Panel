@@ -35,12 +35,7 @@ class Settings_mdl extends CI_Model {
 		$setting = $obj->row();
 		
 		// Get extra params if they exist
-		
-		if( $setting->data ):
-		
-			$setting->data = unserialize($setting->data);
-		
-		endif;
+		if( $setting->data ) $setting->data = unserialize($setting->data);
 		
 		return $setting;
 	}
@@ -68,12 +63,7 @@ class Settings_mdl extends CI_Model {
 			$settings->$node = $setting;
 		
 			// Get extra params if they exist
-			
-			if( $settings->$node->data ):
-			
-				$settings->$node->data = unserialize($settings->$node->data);
-			
-			endif;
+			if( $settings->$node->data ) $settings->$node->data = unserialize($settings->$node->data);
 
 		endforeach;
 		
@@ -112,12 +102,7 @@ class Settings_mdl extends CI_Model {
 			$settings->$node = $setting;
 		
 			// Get extra params if they exist
-			
-			if( $settings->$node->data ):
-			
-				$settings->$node->data = unserialize($settings->$node->data);
-			
-			endif;
+			if( $settings->$node->data ) $settings->$node->data = unserialize($settings->$node->data);
 
 		endforeach;
 		
@@ -161,7 +146,7 @@ class Settings_mdl extends CI_Model {
 			endif;
 			
 			// Add language files
-
+			
 			if( file_exists($setting_path.'language/'.$this->config->item('deft_lang').'/lang.'.$folder.EXT) ):
 			
 				require_once($setting_path.'language/'.$this->config->item('deft_lang').'/lang.'.$folder.EXT);
