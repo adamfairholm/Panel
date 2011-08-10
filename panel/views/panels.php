@@ -1,6 +1,6 @@
 <?php if( $panels ): ?>
 
-<?=form_open('C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=panel', array('id'=>'my_accordion'));?>
+<?php echo form_open('C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=panel', array('id'=>'my_accordion'));?>
 
 <?php
 	$this->table->set_template($cp_pad_table_template);
@@ -9,7 +9,7 @@
 
 <?php foreach( $panels as $panel_id => $settings ): ?>
 			
-	<h3 class="accordion"><?=$panel_info[$panel_id]['name'];?></h3>
+	<h3 class="accordion"><?php echo $panel_info[$panel_id]['name'];?></h3>
 
 	<div style="padding: 5px 1px;"> 
 	
@@ -62,12 +62,12 @@
 	
 <?php endforeach; ?>
 
-<p><?=form_submit('submit', lang('panel_update_settings'), 'class="submit"')?> <a href="<?=$module_base.AMP;?>method=reset_defaults"><?=lang('panel_reset');?></a></p>
+<p><?php echo form_submit('submit', lang('panel_update_settings'), 'class="submit"')?> <a href="<?php echo $module_base.AMP;?>method=reset_defaults"><?php echo lang('panel_reset');?></a></p>
 
-<?=form_close()?>
+<?php echo form_close()?>
 
 <?php else: ?>
 
-<p><?=lang('panel_no_panels');?> <a href="<?=$module_base.AMP;?>method=new_panel"><?=lang('panel_create_one');?></a><?=lang('panel_question_end');?></p>
+<p><?php echo lang('panel_no_panels');?> <a href="<?php echo $module_base.AMP;?>method=new_panel"><?php echo lang('panel_create_one');?></a><?php echo lang('panel_question_end');?></p>
 
 <?php endif; ?>

@@ -18,10 +18,10 @@
 			);
 	}
 ?>
-<?=$this->table->generate();?>
+<?php echo $this->table->generate();?>
 
 <?php else: ?>
 
-	<p><?=lang('panel_no_settings');?> <a href="<?=$module_base.AMP;?>method=new_setting<?=AMP;?>panel_id=<?=$panel_id;?>"><?=lang('panel_create_one');?></a><?=lang('panel_question_end');?></p>
+	<p><?php echo lang('panel_no_settings');?> <a href="<?php echo $module_base.AMP;?>method=new_setting<?php echo AMP;?>panel_id=<?php echo $panel_id;?>"><?php echo lang('panel_create_one');?></a><?php echo lang('panel_question_end');?></p>
 
 <?php endif; ?>

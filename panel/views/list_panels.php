@@ -15,10 +15,10 @@
 			);
 	}
 ?>
-<?=$this->table->generate();?>
+<?php echo $this->table->generate();?>
 
 <?php else: ?>
 
-	<p><?=lang('panel_no_panels');?> <a href="<?=$module_base.AMP;?>method=new_panel"><?=lang('panel_create_one');?></a><?=lang('panel_question_end');?></p>
+	<p><?php echo lang('panel_no_panels');?> <a href="<?php echo $module_base.AMP;?>method=new_panel"><?php echo lang('panel_create_one');?></a><?php echo lang('panel_question_end');?></p>
 
 <?php endif; ?>
