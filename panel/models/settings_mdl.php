@@ -149,7 +149,7 @@ class Settings_mdl extends CI_Model {
 			// Do we have this language? If not, default to english
 			if( !file_exists($setting_path.'language/'.$panel_lang.'/lang.'.$folder.'.php') ):
 			
-				if(file_exists($setting_path.'language/'.$panel_lang.'/lang.'.$folder.'.php')):
+				if(!file_exists($setting_path.'language/'.$panel_lang.'/lang.'.$folder.'.php')):
 			
 					$panel_lang = 'english';
 				
