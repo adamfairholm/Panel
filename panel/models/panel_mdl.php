@@ -3,10 +3,10 @@
 /**
  * Panel Model
  *
- * @author		Addict Add-ons Dev Team
- * @copyright	Copyright (c) 2011, Addict Add-ons
- * @link		http://addictaddons.com/panel
- * @license		http://addictaddons.com/panel/license
+ * @author		Parse19
+ * @copyright	Copyright (c) 2011, Parse19
+ * @link		http://parse19.com/panel
+ * @license		http://parse19.com/panel/license
  */
 class Panel_mdl extends CI_Model {
 

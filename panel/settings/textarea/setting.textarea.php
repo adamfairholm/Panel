@@ -3,8 +3,10 @@
 /**
  * Textarea Setting
  *
- * @package		Panel
- * @author		Adam Fairholm (Green Egg Media)
+ * @author		Parse19
+ * @copyright	Copyright (c) 2011, Parse19
+ * @link		http://parse19.com/panel
+ * @license		http://parse19.com/panel/license
  */
 class Setting_textarea
 {
