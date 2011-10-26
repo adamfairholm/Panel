@@ -1,10 +1,10 @@
 Panel v1.0.2
 =====================
-by Addict Add-ons
-www.addictaddons.com
+by Parse19
+parse19.com
 =====================
 
-Welcome to Panel! This is your README.txt file. Looks like you are good at following things files command you to do.
+Welcome to Panel! This is your README.txt file.
 
 Installation
 ============
@@ -16,7 +16,7 @@ Documentation
 
 You can find all the documentation here:
 
-http://www.addictaddons.com/panel/docs
+http://parse19.com/panel/docs
 
 Support
 =======
@@ -25,18 +25,18 @@ Something go wrong? We are here for you. Our primary place of support is our sup
 
 http://addictaddons.com/forums
 
-We monitor those forums are respond as quickly as possible. You can also search for other problems similar to yours on the forums or talk about anything else related to Panel or our other add-ons.
+You can also @reply us on Twitter - our handle is parse_19.
 
 Change Log
 ==========
 
 A change log for Panel is available here:
 
-http://addictaddons.com/panel/docs/getting-started/change-log
+http://parse19.com/panel/docs/changelog
 
 License
 =======
 
 A copy of the Panel license was included with your download. You can always get a copy of it here if you really like it or something.
 
-http://addictaddons.com/licenses/panel_license.txt
+http://parse19.com/panel/docs/license
