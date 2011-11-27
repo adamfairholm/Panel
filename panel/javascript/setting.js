@@ -1,3 +1,11 @@
+function slugify(str){return str.toLowerCase().replace(/-+/g, '').replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');}
+
+$('#setting_label').keyup(function() {
+
+	$('#setting_name').val(slugify($('#setting_label').val()));
+
+});
+
 $('#setting_type').change(function() {
 
 	var setting_type = document.getElementById("setting_type").value;

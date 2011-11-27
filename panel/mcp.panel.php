@@ -196,7 +196,6 @@ class Panel_mcp {
 		if( $this->EE->input->get_post('submit') ):
 		
 			// Check that we have a panel name
-		
 			if( $this->EE->input->get_post('panel_name') == '' ):
 			
 				show_error( $this->EE->lang->line('panel_provide_panel_name') );
@@ -290,7 +289,7 @@ class Panel_mcp {
 	 * @access	private
 	 * @param	array
 	 */
-	function _panel_form( $vars )
+	function _panel_form($vars)
 	{
 		$this->EE->load->helper('form');
 		
@@ -650,7 +649,7 @@ class Panel_mcp {
 		// Parameters JS
 		// -------------------------------------
 		
-		$this->EE->cp->load_package_js('parameters');
+		$this->EE->cp->load_package_js('setting');
 
 		// -------------------------------------
 		// Get the types & create an array
