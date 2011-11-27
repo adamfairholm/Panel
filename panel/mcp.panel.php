@@ -449,7 +449,7 @@ class Panel_mcp {
 			// Processing
 			// -------------------------------------
 			
-			$this->_validate_setting( 'new' );
+			$this->_validate_setting('new');
 			
 			$type = $_POST['setting_type'];
 					
@@ -457,7 +457,7 @@ class Panel_mcp {
 			
 				$this->EE->session->set_flashdata('message_success', $this->EE->lang->line('panel_setting_add_s'));
 				
-				$this->EE->functions->redirect( $this->module_base.AMP.'method=manage_panels' );
+				$this->EE->functions->redirect($this->module_base.AMP.'method=manage_settings'.AMP.'panel_id='.$panel_id);
 			
 			else:
 			
@@ -549,7 +549,7 @@ class Panel_mcp {
 			
 				$this->EE->session->set_flashdata('message_success', $this->EE->lang->line('panel_setting_upd_s'));
 				
-				$this->EE->functions->redirect( $this->module_base.AMP.'method=manage_panels' );
+				$this->EE->functions->redirect($this->module_base.AMP.'method=manage_settings'.AMP.'panel_id='.$panel_id);
 			
 			else:
 			
