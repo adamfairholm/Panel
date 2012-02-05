@@ -4,7 +4,7 @@
  * Panel Model
  *
  * @author		Parse19
- * @copyright	Copyright (c) 2011, Parse19
+ * @copyright	Copyright (c) 2011-2012, Parse19
  * @link		http://parse19.com/panel
  * @license		http://parse19.com/panel/license
  */
