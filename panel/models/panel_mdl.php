@@ -24,7 +24,7 @@ class Panel_mdl extends CI_Model {
 	 * @param	string
 	 * @return	bool
 	 */
-	function add_panel( $panel_name )
+	function add_panel($panel_name)
 	{
 		$insert_data['panel_name']		= $panel_name;
 		
@@ -79,17 +79,14 @@ class Panel_mdl extends CI_Model {
 	 * @param	int
 	 * @return	obj
 	 */
-	function get_panels( $limit = FALSE, $offset = 0 )
+	function get_panels($limit = FALSE, $offset = 0)
 	{
-		if( $limit ):
+		if ($limit)
+		{
+			$this->db->limit($limit, $offset);
+		}
 		
-			$this->db->limit( $limit, $offset );
-		
-		endif;
-		
-		$obj = $this->db->get('panels');
-		
-		return $obj->result();
+		return $this->db->get('panels')->result();
 	}
 
 	// --------------------------------------------------------------------------
@@ -101,23 +98,16 @@ class Panel_mdl extends CI_Model {
 	 * @param	int
 	 * @return	mixed
 	 */
-	function get_panel( $panel_id )
+	function get_panel($panel_id)
 	{
-		$this->db->limit(1);
+		if ( ! $panel_id) return NULL;
+	
+		$obj = $this->db
+						->limit(1)
+						->where('id', $panel_id)
+						->get('panels');
 		
-		$this->db->where('id', $panel_id);
-		
-		$obj = $this->db->get('panels');
-		
-		if( $obj->num_rows() == 0 ):
-		
-			return FALSE;
-		
-		else:
-		
-			return $obj->row();
-		
-		endif;
+		return ($obj->num_rows() == 0) ? FALSE : $obj->row();
 	}
 
 	// --------------------------------------------------------------------------
@@ -129,32 +119,24 @@ class Panel_mdl extends CI_Model {
 	 * @param	int
 	 * @return	bool
 	 */
-	function delete_panel( $panel_id )
+	function delete_panel($panel_id)
 	{
 		// -------------------------------------
 		// Delete from panels table	
 		// -------------------------------------	
 	
-		$this->db->where('id', $panel_id);
-		
-		$outcome = $this->db->delete('panels');
+		$outcome = $this->db->limit(1)->where('id', $panel_id)->delete('panels');
 
 		// -------------------------------------
 		// Delete settings	
 		// -------------------------------------
 		
-		if( $outcome ):	
-
-		$this->db->where('panel_id', $panel_id);
-		
-		$outcome = $this->db->delete('panel_settings');
-		
-		endif;
+		if ($outcome)	
+		{
+			$outcome = $this->db->limit(1)->where('panel_id', $panel_id)->delete('panel_settings');
+		}
 	
 		return $outcome; 
 	}
 
 }
-
-/* End of file panel_mdl.php */
-/* Location: ./system/expressionengine/third_party/panel/models/panel_mdl.php */

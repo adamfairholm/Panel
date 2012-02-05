@@ -28,15 +28,56 @@ class Panel_mcp {
 
 		// Get our setting types
 		$this->types = $this->EE->settings_mdl->get_setting_types();
+		
+		$this->vars['module_base'] = $this->module_base;
 	}
 
+	// --------------------------------------------------------------------------
+
+	/**
+	 * List Panels
+	 *
+	 * @access	public
+	 * @return	string
+	 */
+	public function index()
+	{
+		// -------------------------------------
+		// Loads and Setup
+		// -------------------------------------
+	
+		$this->EE->load->library('table');
+
+		$this->EE->cp->set_right_nav( 
+			array(
+				'panel_manage_panels' 	=> $this->module_base.AMP.'method=manage_panels'
+			)
+		 );
+	
+		$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_panels'));
+
+		// -------------------------------------
+		// Get Panels
+		// -------------------------------------
+		
+		$this->vars['panels'] = $this->EE->panel_mdl->get_panels();
+		
+		return $this->EE->load->view('panels', $this->vars, TRUE); 
+	}
+	
 	// --------------------------------------------------------------------------
 	
 	/**
 	 * List out the panels
 	 */
-	function index()
+	public function panel()
 	{
+		// -------------------------------------
+		// Get Panels
+		// -------------------------------------
+		
+		$panel = $this->EE->panel_mdl->get_panel($this->EE->input->get('panel_id'));
+		
 		// -------------------------------------
 		// Process Panel Data
 		// -------------------------------------
@@ -80,55 +121,29 @@ class Panel_mcp {
 			)
 		 );
 	
-		$this->EE->cp->set_variable('cp_page_title', $this->EE->lang->line('panel_module_name'));
-
-		// -------------------------------------
-		// Get Panels
-		// -------------------------------------
-		
-		$panels = $this->EE->panel_mdl->get_panels();
+		$this->EE->cp->set_variable('cp_page_title', $panel->panel_name);
 
 		// -------------------------------------
 		// Get Settings
 		// -------------------------------------
 		
-		$vars['panels'] = array();
+		$settings = $this->EE->settings_mdl->get_settings_for_panel($panel->id);
 		
-		foreach( $panels as $panel ):
-		
-			$vars['panels'][$panel->id] = array();
-		
-			$settings = $this->EE->settings_mdl->get_settings_for_panel( $panel->id );
-			
-			$vars['panel_info'][$panel->id]['name'] = $panel->panel_name;
-			
-			if( $settings ):
-		
-			foreach( $settings as $setting ):
-			
-				$vars['panels'][$panel->id][$setting->id] = $setting;
-			
-			endforeach;
-			
-			endif;
-		
-		endforeach;
+		if ($settings)
+		{
+			foreach ($settings as $setting)
+			{
+				$this->vars['settings'][$setting->id] = $setting;
+			}
+		}
 
 		// -------------------------------------
 		// Add Accordian Load Page
 		// -------------------------------------
 
-		$vars['types'] 			= $this->types;
-		$vars['module_base']	= $this->module_base;
+		$this->vars['types'] 			= $this->types;
 
-		$this->EE->cp->add_js_script('ui', 'accordion');
-		$this->EE->javascript->output('
-				$("#my_accordion").accordion({autoHeight: false,header: "h3"});
-			');
-	
-		$this->EE->javascript->compile();
-
-		return $this->EE->load->view('panels', $vars, TRUE); 
+		return $this->EE->load->view('panel', $this->vars, TRUE); 
 	}
 
 	// --------------------------------------------------------------------------
