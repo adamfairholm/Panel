@@ -10,7 +10,50 @@
  */
 class Panel_upd { 
 
-    var $version        = '1.0.2'; 
+    /**
+     * Panel Version
+     *
+     * @access	public
+     * @var		array
+     */
+    public $version        = '1.1'; 
+ 
+ 	// --------------------------------------------------------------------------
+   
+    /**
+     * Our Panel Fields
+     *
+     * @access	private
+     * @var		array
+     */
+    private $panel_fields = array(
+		'sort_order' 	=> array('type' => 'INT', 'constraint' => 4 ),
+		'panel_name' 	=> array('type' =>'VARCHAR', 'constraint' => 80),
+		'panel_desc' 	=> array('type' =>'VARCHAR', 'constraint' => 200, 'null' => TRUE),
+		'panel_menu' 	=> array('type' =>'VARCHAR', 'constraint' => 50, 'null' => TRUE)
+	);
+
+ 	// --------------------------------------------------------------------------
+
+    /**
+     * Our Panel Settings Fields
+     *
+     * @access	private
+     * @var		array
+     */
+	private $setting_fields = array(
+		'panel_id' 		=> array('type' => 'INT', 'constraint' => 11),
+		'sort_order' 	=> array('type' => 'INT', 'constraint' => 4),
+		'setting_type' 	=> array('type' => 'VARCHAR', 'constraint' => 40),
+		'setting_label' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => TRUE),
+		'setting_name' 	=> array('type' => 'VARCHAR', 'constraint' => 100, 'null' => TRUE),
+		'instructions' 	=> array('type' => 'VARCHAR', 'constraint' => 255, 'null' => TRUE),
+		'data' 			=> array('type' => 'TEXT'),
+		'default_value' => array('type' => 'TEXT', 'null' => TRUE),
+		'value' 		=> array('type' => 'TEXT', 'null' => TRUE)
+	);
+	
+	// --------------------------------------------------------------------------
      
     function Panel_upd() 
     { 
@@ -37,14 +80,8 @@ class Panel_upd {
 		// Create the Panels Table
 		// -------------------------------------
 
-		$this->EE->dbforge->add_field( 'id' );
-			
-		$panel_fields = array(
-            'sort_order' 	=> array( 'type' => 'INT', 'constraint' => 4 ),
-            'panel_name' 	=> array( 'type' =>'VARCHAR', 'constraint' => 80 )
-        );
-                        
-        $this->EE->dbforge->add_field( $panel_fields );
+		$this->EE->dbforge->add_field('id');
+        $this->EE->dbforge->add_field($this->panel_fields);
             		
 		$outcome = $this->EE->dbforge->create_table('panels');
 
@@ -52,21 +89,8 @@ class Panel_upd {
 		// Create the Panel Settings Table
 		// -------------------------------------
 
-		$this->EE->dbforge->add_field( 'id' );
-	
-		$scratch_fields = array(
-            'panel_id' 		=> array( 'type' => 'INT', 'constraint' => 11 ),
-            'sort_order' 	=> array( 'type' => 'INT', 'constraint' => 4 ),
-            'setting_type' 	=> array( 'type' => 'VARCHAR', 'constraint' => 40 ),
-            'setting_label' => array( 'type' => 'VARCHAR', 'constraint' => 100 ),
-            'setting_name' 	=> array( 'type' => 'VARCHAR', 'constraint' => 100 ),
-            'instructions' 	=> array( 'type' => 'VARCHAR', 'constraint' => 255 ),
-            'data' 			=> array( 'type' => 'TEXT' ),
-           	'default_value' => array( 'type' => 'TEXT' ),
-           	'value' 		=> array( 'type' => 'TEXT' )
-        );
-            
-        $this->EE->dbforge->add_field( $scratch_fields );
+		$this->EE->dbforge->add_field('id');
+        $this->EE->dbforge->add_field($this->setting_fields);
 		
 		$outcome = $this->EE->dbforge->create_table('panel_settings');
 	
@@ -91,10 +115,37 @@ class Panel_upd {
 	/**
 	 * Update
 	 *
-	 * There is currently no update functionality
+	 * We're basically just going to run the schema
+	 * so it stays up to date.
 	 */
-	function update($current = '')
+	function update()
 	{
+		$this->EE->load->dbforge();
+		
+		$tables = array(
+			'panels'			=> $this->panel_fields,
+			'panel_settings'	=> $this->setting_fields
+		);
+		
+		foreach($tables as $table_name => $table_data)
+		{		
+			foreach ($table_data as $field_name => $field_data)
+			{
+				// If a field does not exist, then create it.
+				if ( ! $this->EE->db->field_exists($field_name, $table_name))
+				{
+					$this->EE->dbforge->add_column($table_name, array($field_name => $field_data));	
+				}
+				else
+				{
+					// Okay, it exists, we are just going to modify it.
+					// If the schema is the same it won't hurt it.
+					$field_data['name'] = $field_name;
+					$this->EE->dbforge->modify_column($table_name, array($field_name => $field_data));
+				}
+			}
+		}
+		
 		return FALSE;
 	}
 
