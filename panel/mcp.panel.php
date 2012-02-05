@@ -134,6 +134,13 @@ class Panel_mcp {
 			foreach ($settings as $setting)
 			{
 				$this->vars['settings'][$setting->id] = $setting;
+				
+				// Get the value from the config and replace
+				// the value if it exists.
+				if($this->EE->config->item($setting->setting_name) !== FALSE)
+				{
+					$this->vars['settings'][$setting->id]->value = $this->EE->config->item($setting->setting_name);
+				}
 			}
 		}
 

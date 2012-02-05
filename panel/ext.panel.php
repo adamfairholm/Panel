@@ -39,15 +39,21 @@ class Panel_ext {
      */
     function set_panel_vars()
     {    
-    	$obj = $this->EE->db->get('panel_settings');
-    
-    	$settings = $obj->result();
+    	$settings = $this->EE->db->select('setting_name, value')->get('panel_settings')->result();
     	
-    	foreach( $settings as $setting ):
-    
-			$this->EE->config->_global_vars[$setting->setting_name] = $setting->value;
-		
-		endforeach;
+    	foreach ($settings as $setting)
+    	{
+			// Get the value from the config and replace
+			// the value if it exists.
+			if($this->EE->config->item($setting->setting_name) !== FALSE)
+			{
+				$this->EE->config->_global_vars[$setting->setting_name] = $this->EE->config->item($setting->setting_name);
+			}
+			else
+			{
+				$this->EE->config->_global_vars[$setting->setting_name] = $setting->value;
+			}
+		}
     }
 
 	// --------------------------------------------------------------------------
